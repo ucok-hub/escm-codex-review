@@ -57,6 +57,23 @@ Repo ini sudah berisi [`render.yaml`](render.yaml) (Blueprint).
 
 ---
 
+## Deploy ke Koyeb (alternatif Render — gratis, via Docker)
+
+Repo ini berisi [`Dockerfile`](Dockerfile), jadi bisa di-deploy di host container mana pun.
+
+1. Daftar di [koyeb.com](https://www.koyeb.com) — **bisa pakai Google/email** (tak harus "Sign in with GitHub").
+2. **Create Web Service** → **GitHub** → install *Koyeb GitHub App* → pilih repo `escm-codex-review`.
+3. **Builder: Dockerfile** (Koyeb otomatis mendeteksi `Dockerfile`).
+4. **Exposing your service** → set **Port = 8787** (sama dengan default server).
+5. **Environment variables** → isi rahasia:
+   - `OPENAI_API_KEY` = kunci OpenAI-mu
+   - `ACCESS_CODE` = passcode "by invitation"
+6. **Deploy** → dapat URL permanen `https://<nama>-<org>.koyeb.app`.
+
+> Free tier Koyeb juga tidur saat idle (cold start). "Panaskan" dengan membuka URL beberapa menit sebelum sidang.
+
+---
+
 ## Environment variables
 
 | Variable | Wajib | Default | Keterangan |

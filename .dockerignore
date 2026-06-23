@@ -1,0 +1,9 @@
+# Jangan salin artefak lokal ke image — semua di-install/build ulang di dalam.
+node_modules
+gui/node_modules
+gui/dist
+.git
+.env
+*.log
+.DS_Store
+Thumbs.db

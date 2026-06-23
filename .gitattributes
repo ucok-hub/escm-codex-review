@@ -1,0 +1,3 @@
+# Paksa LF untuk skrip shell agar jalan di Linux (VM) walau diedit di Windows.
+*.sh text eol=lf
+Dockerfile text eol=lf
