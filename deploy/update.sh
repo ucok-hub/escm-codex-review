@@ -3,8 +3,12 @@
 # Jalankan dari ROOT repo:  bash deploy/update.sh
 set -euo pipefail
 
-echo "==> git pull..."
-git pull
+echo "==> ambil kode terbaru (paksa samakan dengan remote)..."
+# reset --hard kebal terhadap drift file generated (mis. package-lock.json yang
+# di-regenerate npm di VM). File untracked seperti .env TIDAK tersentuh.
+BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+git fetch origin
+git reset --hard "origin/$BRANCH"
 
 echo "==> npm install (backend)..."
 npm install
