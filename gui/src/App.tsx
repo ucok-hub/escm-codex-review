@@ -7,6 +7,7 @@ import type {
     EvalResponse,
     HistorySummary,
     RequestStatus,
+    SeededDataset,
 } from "./types";
 import {
     getHealth,
@@ -14,6 +15,7 @@ import {
     postEvaluate,
     getHistory,
     getHistoryRun,
+    getDataset,
     ApiHttpError,
     setAccessCode,
     clearAccessCode,
@@ -22,6 +24,7 @@ import { ReportControls } from "./components/ReportControls";
 import { ReportView } from "./components/ReportView";
 import { RunHistory } from "./components/RunHistory";
 import { ScanProgress } from "./components/ScanProgress";
+import { SeededViewer } from "./components/SeededViewer";
 
 export default function App() {
     const [health, setHealth] = useState<HealthResponse | null>(null);
@@ -43,11 +46,37 @@ export default function App() {
         null,
     );
     const noticeTimer = useRef<number | null>(null);
+    // Alur naratif: dataset dipilih dulu → panel seeded (hero) tampil → saat
+    // dijalankan, hero memudar ke atas (seededExiting) sebelum hasil muncul.
+    const [datasetSel, setDatasetSel] = useState<string | null>(null);
+    const [seeded, setSeeded] = useState<SeededDataset[] | null>(null);
+    const [seededExiting, setSeededExiting] = useState(false);
 
     useEffect(() => {
         getHealth().then(setHealth).catch(() => setHealth(null));
         getHistory().then(setHistory).catch(() => setHistory([]));
     }, []);
+
+    // Pilih dataset → muat isi patch seeded (sekali) untuk panel kode.
+    function selectDataset(id: string) {
+        setDatasetSel(id);
+        if (!seeded) getDataset().then(setSeeded).catch(() => setSeeded([]));
+    }
+
+    // Bungkus aksi run/scan: bila masih di panel seeded (belum ada hasil),
+    // mainkan animasi "memudar ke atas" dulu, baru jalankan aksinya.
+    async function withSeededExit(action: () => void | Promise<void>) {
+        if (!current) {
+            const reduce = window.matchMedia?.(
+                "(prefers-reduced-motion: reduce)",
+            ).matches;
+            setSeededExiting(true);
+            await new Promise((r) => setTimeout(r, reduce ? 0 : 420));
+            // Tidak di-reset di sini: hero akan unmount karena status berubah
+            // (loading) atau karena hasil/eror tampil — mencegah kedip.
+        }
+        await action();
+    }
 
     // Tampilkan notifikasi singkat di bawah tombol "Jalankan" (auto-hilang ~3s).
     function flashNotice(msg: string) {
@@ -160,9 +189,11 @@ export default function App() {
             <ReportControls
                 health={health}
                 running={status === "loading"}
-                onRun={showRecorded}
-                onRescan={() => runLive()}
+                onRun={() => withSeededExit(showRecorded)}
+                onRescan={() => withSeededExit(() => runLive())}
                 notice={notice}
+                selectedDataset={datasetSel}
+                onSelectDataset={selectDataset}
             />
 
             {status === "loading" &&
@@ -176,21 +207,45 @@ export default function App() {
             )}
 
             {current ? (
-                <ReportView data={current} />
+                <>
+                    {seeded && seeded.length > 0 && (
+                        <SeededViewer datasets={seeded} mode="collapsible" />
+                    )}
+                    <ReportView data={current} />
+                </>
             ) : (
                 !error &&
-                status !== "loading" && (
+                status !== "loading" &&
+                (datasetSel ? (
+                    seeded ? (
+                        seeded.length > 0 ? (
+                            <SeededViewer
+                                datasets={seeded}
+                                mode="hero"
+                                exiting={seededExiting}
+                            />
+                        ) : (
+                            <div className="banner banner--error">
+                                Dataset seeded tidak bisa dimuat.
+                            </div>
+                        )
+                    ) : (
+                        <div className="banner banner--load">
+                            Memuat dataset seeded…
+                        </div>
+                    )
+                ) : (
                     <div className="empty">
                         <p className="empty__lead">
-                            Pilih dataset lalu tekan <b>Jalankan</b> untuk
-                            menampilkan laporan.
+                            Pilih <b>dataset seeded</b> di atas untuk memulai.
                         </p>
                         <p className="empty__sub">
-                            "Scan ulang (live)" memanggil AI sungguhan (perlu
-                            API key &amp; token).
+                            Setelah memilih, kamu akan melihat 30 pelanggaran
+                            yang ditanam — lalu tekan <b>Jalankan</b> (rekaman)
+                            atau <b>Scan ulang (live)</b>.
                         </p>
                     </div>
-                )
+                ))
             )}
 
             <RunHistory

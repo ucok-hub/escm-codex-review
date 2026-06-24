@@ -5,6 +5,7 @@ import type {
     EvalResponse,
     HistorySummary,
     RulebookEntry,
+    SeededDataset,
     ApiError,
 } from "./types";
 
@@ -82,6 +83,14 @@ export async function getHistory(): Promise<HistorySummary[]> {
 
 export async function getHistoryRun(id: string): Promise<EvalResponse> {
     return parseJsonSafe<EvalResponse>(await fetch(`${BASE}/api/history/${id}`));
+}
+
+// Isi dataset seeded (kedua patch EXP-01/EXP-02) untuk panel kode. Tanpa token.
+export async function getDataset(): Promise<SeededDataset[]> {
+    const d = await parseJsonSafe<{ datasets: SeededDataset[] }>(
+        await fetch(`${BASE}/api/dataset`),
+    );
+    return d.datasets;
 }
 
 // Rulebook tervalidasi Lead Dev IT WIKA (30 aturan). Tanpa token.

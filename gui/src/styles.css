@@ -1140,6 +1140,176 @@ body {
     white-space: nowrap;
 }
 
+/* --- Dataset picker: placeholder pulse + chip ----------------------------- */
+.select--pulse {
+    animation: dsPulse 1.8s ease-in-out infinite;
+}
+@keyframes dsPulse {
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(63, 114, 175, 0);
+        border-color: var(--blue);
+    }
+    50% {
+        box-shadow: 0 0 0 5px rgba(63, 114, 175, 0.18);
+        border-color: var(--blue-deep);
+    }
+}
+.ds-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--blue-deep);
+    background: var(--tint);
+    border: 1px solid var(--soft);
+    border-radius: 999px;
+    padding: 7px 13px;
+    animation: fadeIn 0.3s ease both;
+}
+.ds-chip__check {
+    display: inline-flex;
+    width: 16px;
+    height: 16px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--blue);
+    color: #fff;
+    font-size: 0.7rem;
+    line-height: 1;
+}
+
+/* --- Seeded violations code panel ----------------------------------------- */
+.seeded {
+    margin-bottom: 16px;
+}
+.seeded--hero {
+    animation: fadeUp 0.4s ease both;
+}
+.seeded--out {
+    animation: fadeOutUp 0.4s ease both;
+}
+@keyframes fadeOutUp {
+    from {
+        opacity: 1;
+        transform: none;
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+}
+.seeded__herohead {
+    margin-bottom: 10px;
+}
+.seeded__title {
+    margin: 0 0 2px;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--ink);
+}
+.seeded__sub {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--ink-2);
+}
+/* Wadah kode gelap (kontras dgn UI terang), scrollable, header lengket. */
+.seeded__body {
+    max-height: 60vh;
+    overflow: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    background: #1d1f27;
+}
+.seeded__file + .seeded__file {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.seeded__filehead {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: #16181f;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.seeded__exp {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: #fff;
+    background: var(--blue);
+    padding: 2px 8px;
+    border-radius: 999px;
+}
+.seeded__path {
+    font-family: "Fira Code", var(--mono), monospace;
+    font-size: 0.76rem;
+    color: #aeb6c2;
+}
+/* Override tema Prism agar menyatu dengan panel + pakai Fira Code. */
+.seeded__pre {
+    margin: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    padding: 12px 14px !important;
+    overflow-x: auto;
+    font-size: 0.8rem;
+    line-height: 1.55;
+    tab-size: 4;
+}
+.seeded__pre,
+.seeded__pre code {
+    font-family: "Fira Code", var(--mono), monospace !important;
+    text-shadow: none !important;
+}
+.seeded__pre code {
+    background: transparent !important;
+    font-size: 0.8rem;
+}
+/* Collapsible (di atas hasil). */
+.seeded--collapse {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    animation: fadeUp 0.35s ease both;
+}
+.seeded--collapse > .seeded__body {
+    border: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 0;
+    box-shadow: none;
+}
+.seeded__summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 11px 14px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--blue-deep);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+}
+.seeded__summary::-webkit-details-marker {
+    display: none;
+}
+.seeded__chev {
+    transition: transform 0.2s ease;
+    color: var(--blue);
+}
+.seeded--collapse[open] .seeded__chev {
+    transform: rotate(90deg);
+}
+
 /* --- Responsive ----------------------------------------------------------- */
 @media (max-width: 760px) {
     .metrics {

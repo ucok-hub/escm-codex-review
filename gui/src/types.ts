@@ -53,6 +53,13 @@ export interface ApiError {
     error: string;
 }
 
+// Satu patch seeded (EXP-01/EXP-02) berisi teks unified diff lengkap.
+export interface SeededDataset {
+    exp: string;
+    file: string;
+    content: string;
+}
+
 // State mesin UI — eksplisit agar tampilan tak pernah menggantung.
 export type RequestStatus = "idle" | "loading" | "success" | "error";
 

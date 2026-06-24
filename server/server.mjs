@@ -300,6 +300,21 @@ app.get("/api/report/recorded", (req, res) => {
     }
 });
 
+// Konten dataset seeded (kedua patch EXP-01/EXP-02) untuk panel kode di GUI.
+app.get("/api/dataset", (req, res) => {
+    try {
+        const datasets = SEED_PATCHES.map((ds) => ({
+            exp: ds.exp,
+            file: path.relative(ROOT, ds.path).replace(/\\/g, "/"),
+            content: fs.readFileSync(ds.path, "utf8"),
+        }));
+        res.json({ ok: true, datasets });
+    } catch (err) {
+        console.error("[server] gagal baca dataset seeded:", err.message);
+        res.status(500).json({ error: "Gagal memuat dataset seeded." });
+    }
+});
+
 // Sajikan GUI hasil build (gui/dist) bila ada — untuk mode produksi/demo.
 const GUI_DIST = path.join(ROOT, "gui", "dist");
 if (fs.existsSync(GUI_DIST)) {
