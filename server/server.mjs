@@ -24,6 +24,7 @@ import { getLeadDevValidation } from "./data/lead_dev_validation.mjs";
 import { evaluate } from "../scripts/evalMatch.mjs";
 import { recordRun, listRuns, getRun, sha256 } from "./history.mjs";
 import { buildReport } from "./report.mjs";
+import { validateUatPayload, forwardToAppsScript } from "./uat.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, ".."); // .codex-review/
@@ -86,6 +87,7 @@ const DISABLE_RESPONSES =
 // ACCESS_CODE kosong = TANPA gerbang (mode lokal/dev). Di hosting publik, WAJIB
 // di-set agar hanya yang diundang (punya passcode) bisa menjalankan scan live.
 const ACCESS_CODE = (process.env.ACCESS_CODE || "").trim();
+const UAT_APPS_SCRIPT_URL = process.env.UAT_APPS_SCRIPT_URL || "";
 // Batas jumlah scan live per jam (lindungi anggaran token). Global, in-memory.
 const MAX_LIVE_PER_HOUR = parseInt(process.env.MAX_LIVE_PER_HOUR || "20", 10);
 
@@ -445,6 +447,35 @@ app.get("/api/dataset", (req, res) => {
     } catch (err) {
         console.error("[server] gagal baca dataset seeded:", err.message);
         res.status(500).json({ error: "Gagal memuat dataset seeded." });
+    }
+});
+
+// UAT/SUS — TANPA gerbang ACCESS_CODE & tanpa rate-limit (anti-abuse = email unik).
+app.get("/api/uat/check", async (req, res) => {
+    const email = String(req.query.email || "").trim();
+    if (!email) return res.json({ exists: false });
+    if (!UAT_APPS_SCRIPT_URL) return res.json({ exists: false, soft: true });
+    try {
+        const out = await forwardToAppsScript(UAT_APPS_SCRIPT_URL, { method: "GET", query: { action: "check", email } });
+        res.json({ exists: Boolean(out.exists) });
+    } catch (err) {
+        console.error("[server] /api/uat/check:", err.message);
+        res.json({ exists: false, soft: true });
+    }
+});
+
+app.post("/api/uat", async (req, res) => {
+    const verdict = validateUatPayload(req.body);
+    if (!verdict.ok) return res.status(400).json({ error: verdict.error });
+    if (!UAT_APPS_SCRIPT_URL) return res.status(503).json({ error: "UAT belum dikonfigurasi (UAT_APPS_SCRIPT_URL kosong)." });
+    try {
+        const out = await forwardToAppsScript(UAT_APPS_SCRIPT_URL, { method: "POST", payload: { action: "submit", ...req.body } });
+        if (out.duplicate) return res.status(409).json({ duplicate: true });
+        if (out.ok) return res.json({ ok: true });
+        return res.status(500).json({ error: "Respons Apps Script tak terduga." });
+    } catch (err) {
+        console.error("[server] /api/uat:", err.message);
+        res.status(502).json({ error: "Gagal menyimpan ke Google Sheet. Coba lagi." });
     }
 });
 

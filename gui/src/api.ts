@@ -8,6 +8,8 @@ import type {
     SeededDataset,
     ScanProgress,
     ApiError,
+    UatPayload,
+    EmailCheck,
 } from "./types";
 
 // Saat dev, Vite mem-proxy /api → backend (lihat vite.config.ts). Saat di-build
@@ -157,4 +159,24 @@ export async function getRulebook(): Promise<RulebookEntry[]> {
         await fetch(`${BASE}/api/rulebook`),
     );
     return d.rulebook;
+}
+
+export async function checkUatEmail(email: string): Promise<EmailCheck> {
+    try {
+        return parseJsonSafe<EmailCheck>(await fetch(`${BASE}/api/uat/check?email=${encodeURIComponent(email)}`));
+    } catch {
+        return { exists: false, soft: true };
+    }
+}
+
+export async function postUat(payload: UatPayload): Promise<{ ok?: true; duplicate?: true; error?: string }> {
+    const res = await fetch(`${BASE}/api/uat`, {
+        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload),
+    });
+    if (res.status === 409) return { duplicate: true };
+    if (!res.ok) {
+        const err = await parseJsonSafe<ApiError>(res).catch(() => null);
+        return { error: err?.error || `Gagal mengirim (HTTP ${res.status}).` };
+    }
+    return { ok: true };
 }

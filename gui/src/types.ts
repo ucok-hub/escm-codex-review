@@ -185,3 +185,10 @@ export interface HistorySummary {
     findingsTotal?: number;
     overallRisk?: Severity;
 }
+
+export interface UatPayload {
+    consent: true; email: string; peran: string; pengalaman: string;
+    freqTools: string; answers: number[]; komentar: string;
+}
+export interface EmailCheck { exists: boolean; soft?: boolean; }
+export type UatStep = "welcome" | "consent" | "about" | "confirm" | "rate" | "done";

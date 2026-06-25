@@ -29,6 +29,8 @@ import { SeededViewer } from "./components/SeededViewer";
 import { IntroPanel } from "./components/IntroPanel";
 import { GlossaryModal } from "./components/GlossaryModal";
 import { SectionNav, BackToTop } from "./components/SectionNav";
+import { AnimatePresence } from "framer-motion";
+import { UatView } from "./components/uat/UatView";
 
 export default function App() {
     const [health, setHealth] = useState<HealthResponse | null>(null);
@@ -59,6 +61,7 @@ export default function App() {
         null,
     );
     const [glossaryOpen, setGlossaryOpen] = useState(false);
+    const [uatOpen, setUatOpen] = useState(false);
 
     useEffect(() => {
         getHealth().then(setHealth).catch(() => setHealth(null));
@@ -299,6 +302,12 @@ export default function App() {
                 />
             </div>
 
+            <div className="uat-cta-wrap">
+                <button type="button" className="uat-cta" onClick={() => setUatOpen(true)}>
+                    Sudah mencoba? Beri Penilaian Anda →
+                </button>
+            </div>
+
             <footer className="foot">
                 Bot ini <b>hanya memberi saran</b> (tidak mengubah/menghapus
                 kode) · demo independen, memakai mesin yang sama dengan sistem
@@ -308,6 +317,10 @@ export default function App() {
             {glossaryOpen && (
                 <GlossaryModal onClose={() => setGlossaryOpen(false)} />
             )}
+
+            <AnimatePresence>
+                {uatOpen && <UatView onExit={() => setUatOpen(false)} />}
+            </AnimatePresence>
 
             <SectionNav
                 refreshKey={`${datasetSel ?? ""}|${current?.runId ?? ""}|${status}|${seeded ? seeded.length : 0}`}
