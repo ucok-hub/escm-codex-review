@@ -72,11 +72,11 @@ export function ReportControls({
                         disabled={running || !picked}
                         title={
                             picked
-                                ? "Tampilkan hasil contoh yang sudah tersimpan (cepat, tanpa biaya)"
+                                ? "Tampilkan hasil REKAMAN yang sudah tersimpan (cepat, tanpa biaya)"
                                 : "Pilih contoh kode dulu"
                         }
                     >
-                        Lihat hasil contoh
+                        📁 Tampilkan hasil rekaman
                     </button>
                     {notice && (
                         <span

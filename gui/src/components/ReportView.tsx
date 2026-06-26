@@ -1,7 +1,8 @@
 // ReportView.tsx — render "Codex Review Summary" bergaya GitLab dari satu run.
-// Komposisi (produk murni, tanpa metrik evaluasi): Executive · Severity · Usage
-// & cost · Top findings · Component overview (CTDL vs WIKA) · Rulebook compliance.
-import { Fragment, useEffect, useRef, useState } from "react";
+// Komposisi ringkas: Ringkasan (+ keparahan) · Temuan utama (snippet kode
+// terfokus) · Asal temuan (CTDL vs WIKA) · Pemakaian & biaya · Kepatuhan
+// (collapsible). Hanya temuan CTDL & WIKA yang ditampilkan (filter di backend).
+import { Fragment, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import type {
     EvalResponse,
@@ -13,14 +14,6 @@ import { getRulebook } from "../api";
 import { useCountUp, prefersReducedMotion } from "../lib/useCountUp";
 import { RulebookModal } from "./RulebookModal";
 import { InfoHint } from "./InfoHint";
-import Prism from "prismjs";
-import "prismjs/components/prism-markup";
-import "prismjs/components/prism-clike";
-import "prismjs/components/prism-markup-templating";
-import "prismjs/components/prism-php";
-import "prismjs/components/prism-javascript";
-import "prismjs/components/prism-diff";
-import "prismjs/plugins/diff-highlight/prism-diff-highlight";
 
 const SEV_LABEL: Record<Severity, string> = {
     blocker: "BLOCKER",
@@ -30,13 +23,13 @@ const SEV_LABEL: Record<Severity, string> = {
     info: "INFO",
 };
 
-// Nama tingkat keparahan dalam bahasa awam (untuk daftar breakdown).
-const SEV_ID: Record<Severity, string> = {
-    blocker: "Sangat serius (blocker)",
-    critical: "Kritis",
-    major: "Berat",
-    minor: "Ringan",
-    info: "Info",
+// Label ringkas (untuk chip keparahan di Ringkasan).
+const SEV_SHORT: Record<Severity, string> = {
+    blocker: "blocker",
+    critical: "kritis",
+    major: "berat",
+    minor: "ringan",
+    info: "info",
 };
 
 function RiskBadge({ risk, sm }: { risk: Severity; sm?: boolean }) {
@@ -65,15 +58,25 @@ function SectionTitle({
 // Pill rule id berwarna sesuai domain (CTDL biru, WIKA ungu).
 function RulePill({ id }: { id: string }) {
     const u = id.toUpperCase();
-    const fam = u.startsWith("WIKA")
-        ? "wika"
-        : u.startsWith("CTDL")
-          ? "ctdl"
-          : "other";
+    const fam = u.startsWith("WIKA") ? "wika" : "ctdl";
     return <span className={`rule rule--${fam}`}>{id}</span>;
 }
 
-function Executive({ exec }: { exec: ReportData["executive"] }) {
+// Ringkasan: risiko keseluruhan + penjelasan dasarnya + chip keparahan ringkas.
+function Executive({
+    exec,
+    sev,
+}: {
+    exec: ReportData["executive"];
+    sev: ReportData["severity"];
+}) {
+    const chips: [Severity, number][] = [
+        ["blocker", sev.blocker],
+        ["critical", sev.critical],
+        ["major", sev.major],
+        ["minor", sev.minor],
+        ["info", sev.info],
+    ];
     return (
         <section className="sec" id="nav-ringkasan" data-navlabel="Ringkasan">
             <SectionTitle sub="Penilaian keseluruhan & saran singkat dari AI.">
@@ -82,86 +85,113 @@ function Executive({ exec }: { exec: ReportData["executive"] }) {
             <p className="sec__p">
                 Tingkat risiko keseluruhan:{" "}
                 <RiskBadge risk={exec.overallRisk} />{" "}
-                <InfoHint text="Seberapa serius temuan paling berat — dari Info (ringan) sampai Blocker (sangat serius/menghambat)." />
+                <InfoHint text="Diambil dari temuan TERPARAH (severity tertinggi) — standar industri (GitLab/SonarQube). Jadi 1 temuan kritis → risiko kritis, walau temuan lain ringan. Lihat rincian per tingkat di bawah." />
             </p>
-            <p className="sec__p">{exec.guidance}</p>
-        </section>
-    );
-}
-
-function SeverityBreakdown({ sev }: { sev: ReportData["severity"] }) {
-    const rows: [Severity, number][] = [
-        ["blocker", sev.blocker],
-        ["critical", sev.critical],
-        ["major", sev.major],
-        ["minor", sev.minor],
-        ["info", sev.info],
-    ];
-    return (
-        <section className="sec" id="nav-keparahan" data-navlabel="Keparahan">
-            <SectionTitle sub="Jumlah temuan di tiap tingkat, dari paling ringan (info) ke paling serius (blocker).">
-                Tingkat keparahan temuan
-            </SectionTitle>
-            <ul className="sevlist">
-                {rows.map(([k, v]) => (
-                    <li key={k}>
+            <div className="sevchips">
+                {chips.map(([k, v]) => (
+                    <span
+                        key={k}
+                        className={`sevchip${v === 0 ? " sevchip--zero" : ""}`}
+                    >
                         <span className={`dot dot--${k}`} />
-                        {SEV_ID[k]}: <b>{v}</b>
-                    </li>
+                        {v} {SEV_SHORT[k]}
+                    </span>
                 ))}
-            </ul>
+            </div>
+            <p className="sec__p sec__p--muted">{exec.guidance}</p>
         </section>
     );
 }
 
+// Pemakaian & biaya AI — ringkas (chip sebaris).
 function UsageCost({ usage }: { usage: ReportData["usage"] }) {
     const ec = usage.estimatedCost;
     return (
         <section className="sec" id="nav-biaya" data-navlabel="Pemakaian & biaya">
-            <SectionTitle sub="Seberapa banyak teks yang diproses AI & perkiraan biayanya. Mode “hasil tersimpan” = 0.">
+            <SectionTitle sub="Banyaknya teks yang diproses AI pada scan ini & perkiraan biayanya.">
                 Pemakaian &amp; biaya AI
             </SectionTitle>
-            <p className="sec__p">
-                Model AI: {usage.model}
-                {usage.api ? ` (${usage.api})` : ""}
-            </p>
-            <p className="sec__p">Jumlah panggilan ke AI: {usage.calls}</p>
-            <p className="sec__p">
-                Token{" "}
-                <InfoHint text="Satuan potongan teks yang diproses AI — dasar perhitungan biaya." />
-                : masuk={usage.prompt_tokens}, keluar=
-                {usage.completion_tokens}, total={usage.total_tokens}
-            </p>
-            <p className="sec__p">
-                Perkiraan biaya:{" "}
-                {ec
-                    ? `${ec.currency} ${ec.amount.toFixed(4)}`
-                    : "belum dihitung (harga belum diisi)"}
-            </p>
+            <div className="usage-chips">
+                <span className="uchip">🤖 {usage.model}</span>
+                <span className="uchip">{usage.calls} panggilan</span>
+                <span className="uchip">
+                    {usage.total_tokens.toLocaleString("id-ID")} token{" "}
+                    <InfoHint text="Token = satuan potongan teks yang diproses AI; dasar perhitungan biaya." />
+                </span>
+                <span className="uchip">
+                    {ec
+                        ? `~${ec.currency} ${ec.amount.toFixed(4)}`
+                        : "biaya: —"}
+                </span>
+            </div>
         </section>
     );
 }
 
-function TopFindings({ items }: { items: ReportData["topFindings"] }) {
-    const [open, setOpen] = useState<number | null>(null);
-    const wrapRef = useRef<HTMLDivElement>(null);
+// Satu snippet kode terfokus (jendela di sekitar baris yang dimaksud AI).
+function Snippet({
+    f,
+}: {
+    f: ReportData["topFindings"][number];
+}) {
+    const lines = f.snippet || [];
+    return (
+        <div className="tf-code">
+            <div className="tf-code__head">
+                <span className="tf-code__path">
+                    {f.path}
+                    {f.line ? `:${f.line}` : ""}
+                </span>
+                {f.source && <span className="tf-code__exp">{f.source}</span>}
+            </div>
+            <div className="tf-code__pre">
+                {lines.map((ln, k) => (
+                    <div
+                        key={k}
+                        className={`cl cl--${ln.type}${ln.target ? " cl--target" : ""}`}
+                    >
+                        <span className="cl__no">{ln.n ?? ""}</span>
+                        <span className="cl__sign">
+                            {ln.type === "add"
+                                ? "+"
+                                : ln.type === "del"
+                                  ? "-"
+                                  : " "}
+                        </span>
+                        <span className="cl__txt">{ln.text || " "}</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
 
-    // Highlight snippet (Prism diff + PHP) saat baris dibuka.
-    useEffect(() => {
-        if (open !== null && wrapRef.current) {
-            Prism.highlightAllUnder(wrapRef.current);
-        }
-    }, [open]);
+function TopFindings({
+    items,
+    onOpenRulebook,
+}: {
+    items: ReportData["topFindings"];
+    onOpenRulebook: () => void;
+}) {
+    const [open, setOpen] = useState<number | null>(null);
 
     return (
         <section className="sec" id="nav-temuan" data-navlabel="Temuan utama">
-            <SectionTitle sub="Pelanggaran yang ditemukan AI, beserta saran perbaikannya. Klik baris untuk melihat kode yang dimaksud.">
-                Temuan utama
-            </SectionTitle>
+            <div className="sec__headrow">
+                <SectionTitle sub="Pelanggaran yang ditemukan AI + saran perbaikan. Klik baris untuk melihat kode yang dimaksud.">
+                    Temuan utama
+                </SectionTitle>
+                <button
+                    className="btn btn--ghost btn--sm"
+                    onClick={onOpenRulebook}
+                >
+                    📋 Lihat semua aturan tim
+                </button>
+            </div>
             {items.length === 0 ? (
                 <p className="sec__p">Tidak ada temuan.</p>
             ) : (
-                <div className="tf-wrap" ref={wrapRef}>
+                <div className="tf-wrap">
                     <table className="tf">
                         <thead>
                             <tr>
@@ -175,7 +205,9 @@ function TopFindings({ items }: { items: ReportData["topFindings"] }) {
                         </thead>
                         <tbody>
                             {items.map((f, i) => {
-                                const hasCode = Boolean(f.snippet);
+                                const hasCode = Boolean(
+                                    f.snippet && f.snippet.length,
+                                );
                                 const isOpen = open === i;
                                 return (
                                     <Fragment key={i}>
@@ -217,26 +249,7 @@ function TopFindings({ items }: { items: ReportData["topFindings"] }) {
                                         {hasCode && isOpen && (
                                             <tr className="tf__coderow">
                                                 <td colSpan={6}>
-                                                    <div className="tf-code">
-                                                        <div className="tf-code__head">
-                                                            <span className="tf-code__path">
-                                                                {f.path}
-                                                                {f.line
-                                                                    ? `:${f.line}`
-                                                                    : ""}
-                                                            </span>
-                                                            {f.source && (
-                                                                <span className="tf-code__exp">
-                                                                    {f.source}
-                                                                </span>
-                                                            )}
-                                                        </div>
-                                                        <pre className="tf-code__pre">
-                                                            <code className="language-diff-php">
-                                                                {f.snippet}
-                                                            </code>
-                                                        </pre>
-                                                    </div>
+                                                    <Snippet f={f} />
                                                 </td>
                                             </tr>
                                         )}
@@ -315,36 +328,37 @@ function ComponentOverview({ dom }: { dom: ReportData["componentByDomain"] }) {
     );
 }
 
-function Rulebook({
-    rb,
-    onOpen,
-}: {
-    rb: ReportData["rulebook"];
-    onOpen: () => void;
-}) {
+// Kepatuhan aturan — opsional, tersembunyi default (collapsible).
+function Rulebook({ rb }: { rb: ReportData["rulebook"] }) {
     return (
-        <section className="sec" id="nav-kepatuhan" data-navlabel="Kepatuhan aturan">
-            <SectionTitle sub="Berapa banyak aturan tim yang tersentuh oleh temuan ini.">
-                Kepatuhan terhadap aturan{" "}
-                <InfoHint text="“Aturan tim” = daftar konvensi internal WISE/ESCM yang harus dipatuhi developer. Angka ini menunjukkan berapa aturan yang dilanggar pada contoh ini." />
-            </SectionTitle>
-            <p className="sec__p">
-                Aturan yang terpicu:{" "}
-                <b>
-                    {rb.triggered}/{rb.total}
-                </b>
-                {rb.pct !== null ? ` (${rb.pct}%)` : ""}
-            </p>
-            {rb.sampleIds.length > 0 && (
-                <p className="sec__p sec__ids">
-                    Kode aturan terpicu: {rb.sampleIds.join(", ")}
-                    {rb.moreCount > 0 ? ` (+${rb.moreCount} lagi)` : ""}
+        <details
+            className="sec sec--collapse"
+            id="nav-kepatuhan"
+            data-navlabel="Kepatuhan aturan"
+        >
+            <summary className="sec__summary">
+                <span className="sec__chev" aria-hidden>
+                    ▸
+                </span>
+                Kepatuhan terhadap aturan — berapa aturan tim yang dilanggar
+                (klik untuk lihat)
+            </summary>
+            <div className="sec__collapsebody">
+                <p className="sec__p">
+                    Aturan yang terpicu:{" "}
+                    <b>
+                        {rb.triggered}/{rb.total}
+                    </b>
+                    {rb.pct !== null ? ` (${rb.pct}%)` : ""}
                 </p>
-            )}
-            <button className="btn btn--ghost btn--sm" onClick={onOpen}>
-                📋 Lihat semua aturan tim (konvensi WISE/ESCM)
-            </button>
-        </section>
+                {rb.sampleIds.length > 0 && (
+                    <p className="sec__p sec__ids">
+                        Kode aturan terpicu: {rb.sampleIds.join(", ")}
+                        {rb.moreCount > 0 ? ` (+${rb.moreCount} lagi)` : ""}
+                    </p>
+                )}
+            </div>
+        </details>
     );
 }
 
@@ -365,67 +379,65 @@ export function ReportView({ data }: { data: EvalResponse }) {
               ? "rekaman"
               : "riwayat";
     const dataset = data.datasets?.map((d) => d.exp).join(" + ");
-    const ec = r.usage.estimatedCost;
 
     return (
         <>
-        <article className="mr">
-            <header className="mr__head">
-                <div className="mr__avatar" aria-hidden="true">
-                    C
-                </div>
-                <div className="mr__who">
-                    <span className="mr__author">codex</span>{" "}
-                    <span className="mr__handle">@project_61_bot</span>{" "}
-                    <span className="mr__time">· {data.timestamp_display}</span>
-                </div>
-                <span className={`mr__src mr__src--${data.source}`}>
-                    {sourceLabel}
-                </span>
-                <span className="mr__badge">Maintainer</span>
-            </header>
+            <article className="mr">
+                <header className="mr__head">
+                    <div className="mr__avatar" aria-hidden="true">
+                        C
+                    </div>
+                    <div className="mr__who">
+                        <span className="mr__author">codex</span>{" "}
+                        <span className="mr__handle">@project_61_bot</span>{" "}
+                        <span className="mr__time">
+                            · {data.timestamp_display}
+                        </span>
+                    </div>
+                    <span className={`mr__src mr__src--${data.source}`}>
+                        {sourceLabel}
+                    </span>
+                    <span className="mr__badge">Maintainer</span>
+                </header>
 
-            <h1 className="mr__title">Codex Review Summary</h1>
-            <p className="mr__caption">
-                Laporan otomatis dari AI — meniru komentar yang muncul di sistem
-                kode tim (GitLab).
-            </p>
+                <h1 className="mr__title">Codex Review Summary</h1>
+                <p className="mr__caption">
+                    Laporan otomatis dari AI — meniru komentar yang muncul di
+                    sistem kode tim (GitLab).
+                </p>
 
-            <div className="mr__meta">
-                <div>
-                    Proyek:{" "}
-                    <span className="mono">najib221doank/escm-web-laravel</span>
+                <div className="mr__meta">
+                    <div>
+                        Proyek:{" "}
+                        <span className="mono">
+                            najib221doank/escm-web-laravel
+                        </span>
+                    </div>
+                    <div>
+                        Contoh: <span className="mono">{dataset || "—"}</span>
+                    </div>
+                    <div>
+                        Model: <span className="mono">{r.usage.model}</span>
+                    </div>
                 </div>
-                <div>
-                    Contoh: <span className="mono">{dataset || "—"}</span>
-                </div>
-                <div>
-                    Model: <span className="mono">{r.usage.model}</span>
-                </div>
-                <div className="mr__usageline">
-                    Usage: calls={r.usage.calls}, tokens(total)=
-                    {r.usage.total_tokens}
-                    {ec
-                        ? ` → est. cost: ${ec.currency} ${ec.amount.toFixed(4)}`
-                        : ""}
-                </div>
-            </div>
 
-            <div className="mr__body">
-                <Executive exec={r.executive} />
-                <SeverityBreakdown sev={r.severity} />
-                <UsageCost usage={r.usage} />
-                <TopFindings items={r.topFindings} />
-                <ComponentOverview dom={r.componentByDomain} />
-                <Rulebook rb={r.rulebook} onOpen={openRulebook} />
-            </div>
-        </article>
-        {rbOpen && (
-            <RulebookModal
-                entries={rbData}
-                onClose={() => setRbOpen(false)}
-            />
-        )}
+                <div className="mr__body">
+                    <Executive exec={r.executive} sev={r.severity} />
+                    <TopFindings
+                        items={r.topFindings}
+                        onOpenRulebook={openRulebook}
+                    />
+                    <ComponentOverview dom={r.componentByDomain} />
+                    <UsageCost usage={r.usage} />
+                    <Rulebook rb={r.rulebook} />
+                </div>
+            </article>
+            {rbOpen && (
+                <RulebookModal
+                    entries={rbData}
+                    onClose={() => setRbOpen(false)}
+                />
+            )}
         </>
     );
 }

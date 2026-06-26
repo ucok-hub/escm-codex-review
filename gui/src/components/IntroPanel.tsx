@@ -32,9 +32,9 @@ export function IntroPanel({ onOpenGlossary }: { onOpenGlossary: () => void }) {
                 <li>
                     <span className="intro__num">2</span>
                     <span>
-                        Klik <b>“Lihat hasil contoh”</b> (cepat, tanpa biaya)
-                        atau <b>“Periksa ulang dengan AI”</b> (memanggil AI
-                        sungguhan).
+                        Klik <b>“Tampilkan hasil rekaman”</b> (cepat, tanpa
+                        biaya) atau <b>“Periksa ulang dengan AI”</b> (memanggil
+                        AI sungguhan).
                     </span>
                 </li>
                 <li>

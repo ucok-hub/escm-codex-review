@@ -107,16 +107,23 @@ function cleanCheck(name = "") {
 //   topN         : number    — batas baris Top findings (default 10)
 // -----------------------------------------------------------------------------
 export function buildReport({
-    findings = [],
+    findings: inputFindings = [],
     metrics = null,
     official = null,
     cost = null,
     model = "gpt-4o-mini",
     controlTotal = 0,
     pricing = null,
-    topN = 10,
     seededDiffs = null, // { [exp]: { [path]: <blok diff berkas> } }
 } = {}) {
+    // FOKUS 30-RULE: hanya tampilkan temuan CTDL & WIKA (buang OWASP/VAL dll)
+    // agar tabel, hitungan "Asal temuan", & ringkasan 100% konsisten dan sesuai
+    // narasi skripsi. (Metrik P/R/F1 dihitung TERPISAH, tidak terpengaruh ini.)
+    const findings = (inputFindings || []).filter((f) => {
+        const dom = domainOfRuleId(ruleIdOf(f.check_name) || "");
+        return dom === "CTDL" || dom === "WIKA";
+    });
+
     // 1) Severity breakdown + overall risk
     const counts = emptyCounts();
     for (const it of findings) {
@@ -138,7 +145,7 @@ export function buildReport({
     // Snippet kode: blok diff berkas yang ditunjuk temuan, diambil dari patch
     // seeded (seededDiffs). Inilah kode yang BENAR-BENAR direview AI, sehingga
     // penguji bisa melihat & menilai validitasnya langsung.
-    const snippetFor = (exp, fpath) => {
+    const fileBlockFor = (exp, fpath) => {
         if (!seededDiffs || !exp) return null;
         const fileMap = seededDiffs[exp];
         if (!fileMap) return null;
@@ -149,7 +156,50 @@ export function buildReport({
         }
         return null;
     };
-    const topFindings = sorted.slice(0, topN).map((f) => {
+    // Snippet TERFOKUS: ~6 baris di sekitar baris yang dimaksud AI (nomor baris
+    // file baru), baris target ditandai. Bila baris tak ketemu → awal hunk.
+    // Mengembalikan array {type:'add'|'del'|'ctx', text, n, target} | null.
+    const CTX = 6;
+    const buildSnippet = (exp, fpath, targetLine) => {
+        const block = fileBlockFor(exp, fpath);
+        if (!block) return null;
+        const rows = [];
+        let newNo = 0;
+        for (const ln of block.split("\n")) {
+            if (ln.startsWith("@@")) {
+                const m = ln.match(/\+(\d+)(?:,\d+)? @@/);
+                if (m) newNo = parseInt(m[1], 10);
+                continue;
+            }
+            if (
+                ln.startsWith("diff --git") ||
+                ln.startsWith("index ") ||
+                ln.startsWith("--- ") ||
+                ln.startsWith("+++ ")
+            ) {
+                continue;
+            }
+            if (ln.startsWith("+")) {
+                rows.push({ type: "add", text: ln.slice(1), n: newNo });
+                newNo++;
+            } else if (ln.startsWith("-")) {
+                rows.push({ type: "del", text: ln.slice(1), n: null });
+            } else {
+                rows.push({ type: "ctx", text: ln.replace(/^ /, ""), n: newNo });
+                newNo++;
+            }
+        }
+        if (rows.length === 0) return null;
+        let ti = rows.findIndex((r) => targetLine > 0 && r.n === targetLine);
+        const found = ti >= 0;
+        if (!found) ti = 0;
+        const start = Math.max(0, ti - CTX);
+        const end = Math.min(rows.length, ti + CTX + 1);
+        return rows
+            .slice(start, end)
+            .map((r, i) => ({ ...r, target: found && start + i === ti }));
+    };
+    const topFindings = sorted.map((f) => {
         const full = cleanCheck(f.check_name); // tanpa prefix "SAST |"
         return {
             severity: String(f.severity || "").toLowerCase(),
@@ -163,8 +213,12 @@ export function buildReport({
             // deskripsi tanpa prefix "[CTDL-01]" (rule id sudah jadi kolom sendiri)
             descr: full.replace(/^\[[A-Za-z]+-[A-Za-z0-9]+\]\s*/, ""),
             recommendation: f.recommendation || "",
-            // blok diff berkas terkait (null bila tak ditemukan)
-            snippet: snippetFor(f.dataset, f.location?.path),
+            // potongan kode terfokus di sekitar baris yang dimaksud (atau null)
+            snippet: buildSnippet(
+                f.dataset,
+                f.location?.path,
+                f.location?.lines?.begin || 0,
+            ),
         };
     });
 

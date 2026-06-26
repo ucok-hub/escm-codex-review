@@ -1578,22 +1578,200 @@ body {
     border-radius: 999px;
 }
 .tf-code__pre {
-    margin: 0 !important;
-    background: transparent !important;
-    border-radius: 0 !important;
-    padding: 12px 14px !important;
+    margin: 0;
+    padding: 8px 0;
     overflow-x: auto;
+    font-family: "Fira Code", var(--mono), monospace;
     font-size: 0.78rem;
-    line-height: 1.55;
+    line-height: 1.6;
     tab-size: 4;
+    color: #d6dae2;
 }
-.tf-code__pre,
-.tf-code__pre code {
-    font-family: "Fira Code", var(--mono), monospace !important;
-    text-shadow: none !important;
+/* Satu baris snippet: nomor baris + tanda +/- + teks. */
+.cl {
+    display: flex;
+    white-space: pre;
+    padding: 0 12px;
 }
-.tf-code__pre code {
-    background: transparent !important;
+.cl__no {
+    flex: none;
+    width: 40px;
+    text-align: right;
+    padding-right: 12px;
+    color: #5b6472;
+    user-select: none;
+}
+.cl__sign {
+    flex: none;
+    width: 14px;
+    color: #5b6472;
+    user-select: none;
+}
+.cl__txt {
+    white-space: pre;
+}
+.cl--add {
+    background: rgba(46, 160, 67, 0.18);
+}
+.cl--add .cl__sign {
+    color: #3fb950;
+}
+.cl--del {
+    background: rgba(248, 81, 73, 0.16);
+}
+.cl--del .cl__sign {
+    color: #f85149;
+}
+/* Baris yang DIMAKSUD AI — disorot kuning + aksen kiri. */
+.cl--target {
+    background: rgba(255, 213, 79, 0.22);
+    box-shadow: inset 3px 0 0 #ffd54f;
+}
+.cl--target.cl--add {
+    background: rgba(255, 213, 79, 0.28);
+}
+
+/* --- Ringkasan: chip keparahan + usage ringkas + header berisi tombol ----- */
+.sec__headrow {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.sec__headrow .sec__head {
+    flex: 1;
+    min-width: 0;
+}
+.sec__p--muted {
+    color: var(--ink-2);
+    font-size: 0.85rem;
+}
+.sevchips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 8px 0;
+}
+.sevchip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--ink);
+    background: var(--tint);
+    border: 1px solid var(--soft);
+    border-radius: 999px;
+    padding: 3px 10px;
+}
+.sevchip--zero {
+    opacity: 0.45;
+    font-weight: 500;
+}
+.usage-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.uchip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    color: var(--ink);
+    background: var(--tint);
+    border: 1px solid var(--soft);
+    border-radius: 999px;
+    padding: 4px 11px;
+}
+
+/* Tabel temuan: batasi tinggi agar laporan tak terlalu memanjang. */
+.tf-wrap {
+    max-height: 65vh;
+    overflow: auto;
+}
+
+/* Seeded viewer: tab per berkas. */
+.seeded__body {
+    max-height: none;
+    overflow: hidden;
+}
+.seeded__tabs {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    padding: 8px 8px 0;
+    background: #16181f;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.seeded__tab {
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    padding: 7px 11px;
+    font-family: "Fira Code", var(--mono), monospace;
+    font-size: 0.74rem;
+    color: #aeb6c2;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.seeded__tab:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.05);
+}
+.seeded__tab.is-active {
+    color: #fff;
+    background: #1d1f27;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+.seeded__tabexp {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--blue);
+    padding: 1px 6px;
+    border-radius: 999px;
+}
+.seeded__code {
+    max-height: 55vh;
+    overflow: auto;
+}
+
+/* Seksi collapsible (mis. Kepatuhan aturan). */
+.sec--collapse {
+    border-top: 1px solid var(--line);
+    padding-top: 8px;
+}
+.sec__summary {
+    cursor: pointer;
+    list-style: none;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--blue-deep);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    user-select: none;
+    padding: 4px 0;
+}
+.sec__summary::-webkit-details-marker {
+    display: none;
+}
+.sec__chev {
+    transition: transform 0.2s ease;
+    color: var(--blue);
+}
+.sec--collapse[open] .sec__chev {
+    transform: rotate(90deg);
+}
+.sec__collapsebody {
+    padding-top: 6px;
 }
 
 /* --- Navigasi per-bagian (desktop dots / mobile FAB) + Back to top -------- */

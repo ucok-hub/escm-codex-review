@@ -112,6 +112,13 @@ export interface ReportUsage {
     total_tokens: number;
     estimatedCost: ReportEstimatedCost | null;
 }
+// Satu baris snippet kode terfokus (jendela di sekitar baris yang dirujuk AI).
+export interface SnippetLine {
+    type: "add" | "del" | "ctx";
+    text: string;
+    n: number | null; // nomor baris file baru (null utk baris dihapus)
+    target: boolean; // true = baris yang dimaksud AI (disorot)
+}
 export interface ReportTopFinding {
     severity: Severity;
     type: string;
@@ -123,7 +130,7 @@ export interface ReportTopFinding {
     check: string;
     descr: string;
     recommendation: string;
-    snippet?: string | null; // blok diff berkas terkait (kode yang dirujuk AI)
+    snippet?: SnippetLine[] | null; // potongan kode terfokus (atau null)
 }
 
 // Satu baris rulebook tervalidasi Lead Dev IT WIKA (dari /api/rulebook).

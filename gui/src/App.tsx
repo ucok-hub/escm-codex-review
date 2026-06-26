@@ -200,6 +200,8 @@ export default function App() {
             setCurrent(run);
             setActiveId(id);
             setStatus("success");
+            // #10: bawa pengguna ke atas agar langsung melihat laporannya.
+            window.scrollTo({ top: 0, behavior: "smooth" });
         } catch {
             setError("Gagal memuat run dari riwayat.");
             setStatus("error");
@@ -284,7 +286,7 @@ export default function App() {
                         <p className="empty__sub">
                             Setelah memilih, kamu akan melihat contoh kode yang
                             sengaja dibuat bermasalah — lalu tekan{" "}
-                            <b>“Lihat hasil contoh”</b> atau{" "}
+                            <b>“Tampilkan hasil rekaman”</b> atau{" "}
                             <b>“Periksa ulang dengan AI”</b>.
                         </p>
                     </div>
