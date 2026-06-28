@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { postUat } from "../../api";
 import type { UatStep } from "../../types";
@@ -25,11 +25,35 @@ export function UatView({ onExit }: { onExit: () => void }) {
     const [error, setError] = useState<string | null>(null);
     const [duplicateEmail, setDuplicateEmail] = useState<string | null>(null);
 
+    const hasUnsavedProgress =
+        step !== "welcome" &&
+        step !== "done" &&
+        (agreed ||
+            Boolean(demo.email.trim()) ||
+            Boolean(demo.peran) ||
+            Boolean(demo.pengalaman) ||
+            Boolean(demo.freqTools) ||
+            confirmed ||
+            answers.some((a) => a !== null) ||
+            Boolean(komentar.trim()));
+
+    const requestExit = useCallback(() => {
+        if (
+            hasUnsavedProgress &&
+            !window.confirm(
+                "Keluar dari kuesioner? Jawaban yang belum dikirim akan hilang.",
+            )
+        ) {
+            return;
+        }
+        onExit();
+    }, [hasUnsavedProgress, onExit]);
+
     useEffect(() => {
-        function onKey(e: KeyboardEvent) { if (e.key === "Escape") onExit(); }
+        function onKey(e: KeyboardEvent) { if (e.key === "Escape") requestExit(); }
         window.addEventListener("keydown", onKey);
         return () => window.removeEventListener("keydown", onKey);
-    }, [onExit]);
+    }, [requestExit]);
 
     useEffect(() => {
         overlayRef.current?.scrollTo({ top: 0 });
@@ -66,7 +90,7 @@ export function UatView({ onExit }: { onExit: () => void }) {
     return (
         <motion.div ref={overlayRef} className="uat" initial={{ opacity: 0, y: "100%" }} animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: "100%" }} transition={{ duration: 0.7, ease: "easeOut" }}>
-            <button className="uat__exit" onClick={onExit} aria-label="Keluar">✕ Keluar</button>
+            <button className="uat__exit" onClick={requestExit} aria-label="Keluar">✕ Keluar</button>
             {step !== "welcome" && step !== "done" && (
                 <UatProgress
                     steps={STEPS}

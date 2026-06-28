@@ -19,6 +19,8 @@ export function UatSelect({
     const [open, setOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
     const buttonRef = useRef<HTMLButtonElement>(null);
+    const suppressToggleRef = useRef(false);
+    const suppressTimerRef = useRef<number | null>(null);
 
     useEffect(() => {
         if (!open) return;
@@ -38,10 +40,32 @@ export function UatSelect({
         };
     }, [open]);
 
+    useEffect(() => {
+        return () => {
+            if (suppressTimerRef.current) {
+                window.clearTimeout(suppressTimerRef.current);
+            }
+        };
+    }, []);
+
     function selectOption(opt: string) {
+        suppressToggleRef.current = true;
+        if (suppressTimerRef.current) window.clearTimeout(suppressTimerRef.current);
+        suppressTimerRef.current = window.setTimeout(() => {
+            suppressToggleRef.current = false;
+            suppressTimerRef.current = null;
+        }, 220);
         onChange(opt);
         setOpen(false);
         buttonRef.current?.blur();
+    }
+
+    function toggleOpen() {
+        if (suppressToggleRef.current) {
+            suppressToggleRef.current = false;
+            return;
+        }
+        setOpen((v) => !v);
     }
 
     return (
@@ -50,7 +74,7 @@ export function UatSelect({
                 ref={buttonRef}
                 type="button"
                 className={`uatsel__btn${value ? "" : " is-placeholder"}`}
-                onClick={() => setOpen((v) => !v)}
+                onClick={toggleOpen}
                 aria-haspopup="listbox"
                 aria-expanded={open}
             >
