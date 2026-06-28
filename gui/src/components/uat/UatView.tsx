@@ -20,6 +20,7 @@ export function UatView({ onExit }: { onExit: () => void }) {
     const [demo, setDemo] = useState<DemoValue>({ email: "", peran: "", pengalaman: "", freqTools: "" });
     const [confirmed, setConfirmed] = useState(false);
     const [answers, setAnswers] = useState<(number | null)[]>(Array(10).fill(null));
+    const [komentar, setKomentar] = useState("");
     const [sending, setSending] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [duplicateEmail, setDuplicateEmail] = useState<string | null>(null);
@@ -37,11 +38,21 @@ export function UatView({ onExit }: { onExit: () => void }) {
     const stepIndex: Record<UatStep, number> = { welcome: -1, consent: 0, about: 1, confirm: 2, rate: 3, done: 3 };
     const allFilled = answers.every((a) => a !== null);
 
+    function goToPreviousStep(index: number) {
+        const target = STEP_BY_INDEX[index];
+        const label = STEPS[index];
+        if (!target) return;
+        const ok = window.confirm(
+            `Kembali ke langkah "${label}"? Jawaban yang sudah Anda isi tetap disimpan di layar ini.`,
+        );
+        if (ok) setStep(target);
+    }
+
     async function submit() {
         setSending(true); setError(null);
         try {
             const res = await postUat({ consent: true, email: demo.email.trim(), peran: demo.peran,
-                pengalaman: demo.pengalaman, freqTools: demo.freqTools, answers: answers as number[], komentar: "" });
+                pengalaman: demo.pengalaman, freqTools: demo.freqTools, answers: answers as number[], komentar: komentar.trim() });
             if (res.ok) setStep("done");
             else if (res.duplicate) { setDuplicateEmail(demo.email.trim()); setError("Email ini sudah pernah mengisi."); setStep("about"); }
             else setError(res.error || "Gagal mengirim. Coba lagi.");
@@ -60,7 +71,7 @@ export function UatView({ onExit }: { onExit: () => void }) {
                 <UatProgress
                     steps={STEPS}
                     current={stepIndex[step]}
-                    onStepClick={(i) => setStep(STEP_BY_INDEX[i])}
+                    onStepClick={goToPreviousStep}
                 />
             )}
             <div className="uat__stage">
@@ -101,6 +112,16 @@ export function UatView({ onExit }: { onExit: () => void }) {
                             <div className="uatcard">
                                 <h3 className="uatcard__title">Penilaian</h3>
                                 <SusScale answers={answers} onChange={(i, v) => setAnswers((p) => p.map((x, j) => (j === i ? v : x)))} />
+                                <label className="uatcomment">
+                                    <span>Saran/komentar untuk perbaikan sistem</span>
+                                    <textarea
+                                        value={komentar}
+                                        maxLength={1000}
+                                        onChange={(e) => setKomentar(e.target.value)}
+                                        placeholder="Opsional. Tulis masukan singkat jika ada."
+                                    />
+                                    <small>{komentar.length}/1000</small>
+                                </label>
                                 {error && <p className="uat__error">{error}</p>}
                                 <div className="uatcard__actions">
                                     <button className="uat-btn uat-btn--back" onClick={() => setStep("confirm")}>← Sebelumnya</button>

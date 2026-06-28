@@ -18,6 +18,7 @@ export function UatSelect({
 }: Props) {
     const [open, setOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
         if (!open) return;
@@ -37,9 +38,16 @@ export function UatSelect({
         };
     }, [open]);
 
+    function selectOption(opt: string) {
+        onChange(opt);
+        setOpen(false);
+        buttonRef.current?.blur();
+    }
+
     return (
         <div className={`uatsel${open ? " is-open" : ""}`} ref={ref}>
             <button
+                ref={buttonRef}
                 type="button"
                 className={`uatsel__btn${value ? "" : " is-placeholder"}`}
                 onClick={() => setOpen((v) => !v)}
@@ -66,10 +74,17 @@ export function UatSelect({
                                 key={opt}
                                 role="option"
                                 aria-selected={opt === value}
+                                tabIndex={0}
                                 className={`uatsel__opt${opt === value ? " is-sel" : ""}`}
-                                onClick={() => {
-                                    onChange(opt);
-                                    setOpen(false);
+                                onPointerDown={(e) => {
+                                    e.preventDefault();
+                                    selectOption(opt);
+                                }}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter" || e.key === " ") {
+                                        e.preventDefault();
+                                        selectOption(opt);
+                                    }
                                 }}
                             >
                                 {opt}

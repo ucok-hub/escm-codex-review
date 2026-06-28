@@ -2189,6 +2189,41 @@ body {
     gap: 10px;
     margin-top: 14px;
 }
+.uatcomment {
+    display: grid;
+    gap: 6px;
+    margin-top: 12px;
+}
+.uatcomment > span {
+    font-size: 0.82rem;
+    color: #b9cbe6;
+}
+.uatcomment textarea {
+    width: 100%;
+    min-height: 76px;
+    resize: vertical;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(234, 241, 251, 0.2);
+    border-radius: 8px;
+    color: #eaf1fb;
+    padding: 10px 12px;
+    font: inherit;
+    font-size: 0.9rem;
+    line-height: 1.45;
+}
+.uatcomment textarea:focus {
+    outline: none;
+    border-color: #d8b45a;
+    box-shadow: 0 0 0 3px rgba(216, 180, 90, 0.18);
+}
+.uatcomment textarea::placeholder {
+    color: rgba(234, 241, 251, 0.45);
+}
+.uatcomment small {
+    justify-self: end;
+    color: rgba(234, 241, 251, 0.55);
+    font-size: 0.72rem;
+}
 .uat-btn--back {
     background: transparent;
     color: #d3e0f2;
