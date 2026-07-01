@@ -321,8 +321,9 @@ app.post("/api/evaluate", async (req, res) => {
   }
 });
 
-// Evaluasi live: scan kedua patch seeded → cocokkan → metrik → simpan riwayat.
-app.post("/api/evaluate/stream", async (req, res) => {
+// Evaluasi live seeded: scan kedua patch EXP → cocokkan → metrik → simpan riwayat.
+// Disimpan di path terpisah agar tidak menabrak endpoint streaming upload custom.
+app.post("/api/evaluate/seeded", async (req, res) => {
   try {
     if (!accessOk(req, res)) return;
     if (!rateLimitOk()) {
@@ -397,7 +398,7 @@ app.post("/api/evaluate/stream", async (req, res) => {
     const saved = getRun(HISTORY_DIR, id);
     res.json(runToResponse(saved, "live"));
   } catch (err) {
-    console.error("[server] /api/evaluate error:", err);
+    console.error("[server] /api/evaluate/seeded error:", err);
     res
       .status(500)
       .json({ error: "Gagal menjalankan evaluasi. Cek log server." });
