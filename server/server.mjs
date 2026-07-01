@@ -22,7 +22,6 @@ import {
 } from "../scripts/reviewEngine.mjs";
 import { getGroundTruth } from "./data/ground_truth.mjs";
 import { getLeadDevValidation } from "./data/lead_dev_validation.mjs";
-import { evaluate } from "../scripts/evalMatch.mjs";
 import { recordRun, listRuns, getRun, sha256 } from "./history.mjs";
 import { buildReport } from "./report.mjs";
 import { validateUatPayload, forwardToAppsScript } from "./uat.mjs";
@@ -96,39 +95,7 @@ const MAX_LIVE_PER_HOUR = parseInt(process.env.MAX_LIVE_PER_HOUR || "20", 10);
 const PROMPT_DIFF_PATH = path.join(ROOT, "prompts", "codex_diff_review.md");
 
 const HISTORY_DIR = path.join(ROOT, "history");
-// Laporan rekaman default (statis, ikut di-commit) untuk demo anti-gagal.
-const RECORDED_PATH = path.join(__dirname, "data", "recorded_report.json");
-const SEED_PATCHES = [
-  { exp: "EXP-01", path: path.join(ROOT, "tests", "sample_mr.patch") },
-  {
-    exp: "EXP-02",
-    path: path.join(ROOT, "tests", "stress_test_rulebook.patch"),
-  },
-];
-
-// Cache peta { exp: { path: <blok diff berkas> } } dari patch seeded, untuk
-// snippet kode di Top findings. Dibangun sekali (isi patch statis).
-let _seededDiffsCache = null;
-function getSeededDiffs() {
-  if (_seededDiffsCache) return _seededDiffsCache;
-  const out = {};
-  for (const ds of SEED_PATCHES) {
-    try {
-      if (!fs.existsSync(ds.path)) continue;
-      const text = fs.readFileSync(ds.path, "utf8");
-      const map = {};
-      const blocks = text.split(/(?=^diff --git )/m).filter((s) => s.trim());
-      for (const b of blocks) {
-        const m = b.match(/^diff --git a\/(.+?) b\/(.+)$/m);
-        const p = m ? m[2].trim() : null;
-        if (p) map[p] = b.replace(/\s+$/, "");
-      }
-      out[ds.exp] = map;
-    } catch (_) {}
-  }
-  _seededDiffsCache = out;
-  return out;
-}
+const ALLOWED_UPLOAD_EXTENSIONS = [".php", ".blade.php"];
 
 // Muat katalog kontrol sekali saat start (untuk severity floor & coverage).
 const controlCatalog = loadControlRiskCatalog(
@@ -150,16 +117,14 @@ function pricingFromEnv() {
 // Ubah satu run tersimpan menjadi bentuk respons (EvalResponse) + laporan
 // terstruktur "Codex Review Summary" siap-render untuk GUI.
 function runToResponse(run, source = "history") {
-  const { official } = getGroundTruth();
   const report = buildReport({
     findings: run.findings || [],
     metrics: run.metrics_live || null,
-    official,
+    official: null,
     cost: run.cost || null,
     model: run.model || MODEL,
     controlTotal: controlCatalog.riskById.size,
     pricing: pricingFromEnv(),
-    seededDiffs: getSeededDiffs(),
   });
   return {
     ok: true,
@@ -168,9 +133,9 @@ function runToResponse(run, source = "history") {
     timestamp_display: run.timestamp_display,
     model: run.model,
     datasets: run.datasets,
-    metrics_live: run.metrics_live,
-    perRule: run.per_rule,
-    fpFindings: run.fp_findings,
+    metrics_live: run.metrics_live || null,
+    perRule: run.per_rule || [],
+    fpFindings: run.fp_findings || [],
     cost: run.cost,
     report,
   };
@@ -218,7 +183,6 @@ app.get("/api/health", (req, res) => {
     apiKeyConfigured: hasKey,
     rulesLoaded: controlCatalog.riskById.size,
     promptLoaded: fs.existsSync(PROMPT_DIFF_PATH),
-    recordedAvailable: fs.existsSync(RECORDED_PATH),
     accessRequired: Boolean(ACCESS_CODE),
   });
 });
@@ -252,16 +216,15 @@ app.post("/api/evaluate", async (req, res) => {
     const uploadedFiles = Array.isArray(payload.files) ? payload.files : [];
     const built = buildSyntheticDiffFromFiles(uploadedFiles, {
       maxFiles: 5,
-      allowedExtensions: [".php"],
+      allowedExtensions: ALLOWED_UPLOAD_EXTENSIONS,
     });
     if (!built.files.length) {
       return res.status(400).json({
-        error: "Unggah minimal 1 file PHP untuk dipindai.",
+        error: "Unggah minimal 1 file .php atau .blade.php untuk dipindai.",
       });
     }
 
     const prompt = fs.readFileSync(PROMPT_DIFF_PATH, "utf8");
-    const { rules } = getGroundTruth();
 
     const cost = {
       calls: 0,
@@ -297,16 +260,15 @@ app.post("/api/evaluate", async (req, res) => {
     });
 
     const allFindings = result.issues;
-    const { perRule, metrics, fpFindings } = evaluate(allFindings, rules);
     const { id } = recordRun(HISTORY_DIR, {
       model: MODEL,
       datasets: built.files.map((file) => ({
         exp: file.name,
         sha256: sha256(file.content),
       })),
-      metrics_live: metrics,
-      per_rule: perRule,
-      fp_findings: fpFindings,
+      metrics_live: null,
+      per_rule: [],
+      fp_findings: [],
       findings: allFindings,
       cost,
       git_commit: process.env.CI_COMMIT_SHA || null,
@@ -324,6 +286,10 @@ app.post("/api/evaluate", async (req, res) => {
 // Evaluasi live seeded: scan kedua patch EXP → cocokkan → metrik → simpan riwayat.
 // Disimpan di path terpisah agar tidak menabrak endpoint streaming upload custom.
 app.post("/api/evaluate/seeded", async (req, res) => {
+  return res.status(410).json({
+    error:
+      "Endpoint seeded sudah dinonaktifkan. Unggah file kode melalui endpoint scan custom.",
+  });
   try {
     if (!accessOk(req, res)) return;
     if (!rateLimitOk()) {
