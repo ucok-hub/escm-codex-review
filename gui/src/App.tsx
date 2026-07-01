@@ -12,7 +12,6 @@ import type {
 } from "./types";
 import {
   getHealth,
-  getRecordedReport,
   postEvaluateStream,
   getHistory,
   getHistoryRun,
@@ -30,6 +29,12 @@ import { SectionNav, BackToTop } from "./components/SectionNav";
 import { AnimatePresence } from "framer-motion";
 import { UatView } from "./components/uat/UatView";
 
+// Batas unggahan (upload bebas). Disamakan dengan validasi server:
+// maks 5 file, ekstensi .php / .blade.php, ukuran ≤200 KB per file.
+const MAX_FILES = 5;
+const MAX_BYTES = 200 * 1024;
+const ACCEPTED_NAME = /\.(blade\.)?php$/i;
+
 export default function App() {
   const [health, setHealth] = useState<HealthResponse | null>(null);
   const [status, setStatus] = useState<RequestStatus>("idle");
@@ -41,19 +46,15 @@ export default function App() {
   // rekaman/riwayat, instan → banner ringkas).
   const [loadingKind, setLoadingKind] = useState<"live" | "load" | null>(null);
   // Fase keluar bar scan live: bar menyusut ke tengah & memudar SEBELUM hasil
-  // muncul (lihat runLive). Notifikasi "sudah dimuat" untuk klik "Jalankan"
-  // berulang saat rekaman sudah tampil.
+  // muncul (lihat runLive).
   const [scanExiting, setScanExiting] = useState(false);
-  const [notice, setNotice] = useState<{ msg: string; key: number } | null>(
-    null,
-  );
-  const noticeTimer = useRef<number | null>(null);
-  // Alur naratif: dataset dipilih dulu → panel seeded (hero) tampil → saat
-  // dijalankan, hero memudar ke atas (seededExiting) sebelum hasil muncul.
+  // File yang diunggah pengguna (upload bebas) + isinya (dibaca di browser).
   const [uploadedFiles, setUploadedFiles] = useState<
     { name: string; content: string }[]
   >([]);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  // true selama FileReader membaca isi file (umpan balik "Membaca file…").
+  const [reading, setReading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [scanProgress, setScanProgress] = useState<ScanProgressData | null>(
     null,
@@ -86,51 +87,7 @@ export default function App() {
     return () => window.removeEventListener("beforeunload", onBeforeUnload);
   }, [status, loadingKind, current]);
 
-  // Bungkus aksi run/scan: bila masih di panel seeded (belum ada hasil),
-  // mainkan animasi "memudar ke atas" dulu, baru jalankan aksinya.
-  async function withSeededExit(action: () => void | Promise<void>) {
-    await action();
-  }
-
-  // Tampilkan notifikasi singkat di bawah tombol "Jalankan" (auto-hilang ~3s).
-  function flashNotice(msg: string) {
-    if (noticeTimer.current) window.clearTimeout(noticeTimer.current);
-    setNotice({ msg, key: Date.now() });
-    noticeTimer.current = window.setTimeout(() => setNotice(null), 3000);
-  }
-
-  // "Jalankan" — tampilkan laporan rekaman (statis, anti-gagal).
-  async function showRecorded() {
-    // Bila laporan rekaman SUDAH tampil, jangan reload (hindari "kedut"
-    // render ulang) — cukup beri notifikasi bahwa data sudah dimuat.
-    if (current?.source === "recorded" && status === "success") {
-      flashNotice("Data sudah dimuat");
-      return;
-    }
-    setStatus("loading");
-    setLoadingKind("load");
-    setError(null);
-    try {
-      const rec = await getRecordedReport();
-      if (!rec) {
-        setStatus("idle");
-        setError(
-          'Belum ada laporan rekaman. Tekan "Scan ulang (live)" untuk membuatnya, lalu jalankan `npm run pin-report` agar tersimpan sebagai default.',
-        );
-        return;
-      }
-      setCurrent(rec);
-      setActiveId(rec.runId);
-      setStatus("success");
-    } catch (e) {
-      setError(
-        e instanceof Error ? e.message : "Gagal memuat laporan rekaman.",
-      );
-      setStatus("error");
-    }
-  }
-
-  // "Scan ulang (live)" — panggil AI sungguhan, simpan ke riwayat.
+  // "Periksa dengan AI" — panggil AI sungguhan, simpan ke riwayat.
   // Bila server minta passcode (401), minta sekali lalu coba ulang.
   async function runLive(isRetry = false) {
     if (!uploadedFiles.length) {
@@ -186,57 +143,69 @@ export default function App() {
     }
   }
 
-  function handleFilesSelected(e: ChangeEvent<HTMLInputElement>) {
-    const files = Array.from(e.target.files || []);
-    if (!files.length) return;
-    const next: { name: string; content: string }[] = [];
+  // Baca + validasi file di browser (dipakai bersama oleh input "pilih file"
+  // dan drag-and-drop). Digabung dengan yang sudah ada, dedup per nama, batas 5.
+  async function ingestFiles(fileList: File[]) {
+    if (!fileList.length) return;
+    const valid: File[] = [];
     let invalidCount = 0;
-    for (const file of files) {
-      if (file.size > 200 * 1024) {
+    for (const file of fileList) {
+      if (file.size > MAX_BYTES || !ACCEPTED_NAME.test(file.name)) {
         invalidCount += 1;
         continue;
       }
-      const ext = file.name.toLowerCase().slice(file.name.lastIndexOf("."));
-      if (ext !== ".php") {
-        invalidCount += 1;
-        continue;
-      }
-      next.push({ name: file.name, content: "" });
+      valid.push(file);
     }
-    if (next.length > 5) {
-      setUploadError("Maksimal 5 file per unggahan.");
+    if (!valid.length) {
+      setUploadError("Hanya file .php / .blade.php (maks 200 KB) yang diterima.");
       return;
     }
-    if (invalidCount) {
-      setUploadError(
-        "Hanya file .php dengan ukuran maksimal 200 KB yang diterima.",
+    setReading(true);
+    try {
+      const readFiles = await Promise.all(
+        valid.map(
+          (file) =>
+            new Promise<{ name: string; content: string }>(
+              (resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () =>
+                  resolve({
+                    name: file.name,
+                    content: String(reader.result || ""),
+                  });
+                reader.onerror = () =>
+                  reject(new Error(`Gagal membaca ${file.name}`));
+                reader.readAsText(file);
+              },
+            ),
+        ),
       );
-    } else {
-      setUploadError(null);
+      // Dedup per nama: file baru menimpa yang lama bernama sama.
+      const map = new Map(uploadedFiles.map((f) => [f.name, f]));
+      for (const f of readFiles) map.set(f.name, f);
+      const all = Array.from(map.values());
+      const overflow = all.length > MAX_FILES;
+      setUploadedFiles(all.slice(0, MAX_FILES));
+      if (overflow) {
+        setUploadError(
+          `Maksimal ${MAX_FILES} file — sebagian tidak dimasukkan.`,
+        );
+      } else if (invalidCount) {
+        setUploadError(
+          "Sebagian file dilewati (bukan .php / .blade.php atau >200 KB).",
+        );
+      } else {
+        setUploadError(null);
+      }
+    } catch {
+      setUploadError("Gagal membaca file yang dipilih.");
+    } finally {
+      setReading(false);
     }
-    Promise.all(
-      next.map(
-        (entry) =>
-          new Promise<{ name: string; content: string }>((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () =>
-              resolve({
-                name: entry.name,
-                content: String(reader.result || ""),
-              });
-            reader.onerror = () =>
-              reject(new Error(`Gagal membaca ${entry.name}`));
-            reader.readAsText(files.find((f) => f.name === entry.name) as File);
-          }),
-      ),
-    )
-      .then((readFiles) => {
-        setUploadedFiles((prev) => {
-          const merged = [...prev, ...readFiles].slice(0, 5);
-          return merged;
-        });
-      })
-      .catch(() => setUploadError("Gagal membaca file yang dipilih."));
+  }
+
+  function handleFilesSelected(e: ChangeEvent<HTMLInputElement>) {
+    ingestFiles(Array.from(e.target.files || []));
     e.target.value = "";
   }
 
@@ -283,12 +252,12 @@ export default function App() {
       <ReportControls
         health={health}
         running={status === "loading"}
-        onRun={() => withSeededExit(showRecorded)}
-        onRescan={() => withSeededExit(() => runLive())}
-        notice={notice}
+        reading={reading}
+        onRescan={() => runLive()}
         uploadedFiles={uploadedFiles}
         uploadError={uploadError}
         onPickFiles={() => fileInputRef.current?.click()}
+        onDropFiles={ingestFiles}
         onRemoveFile={removeUploadedFile}
         fileInputRef={fileInputRef}
         onFilesSelected={handleFilesSelected}

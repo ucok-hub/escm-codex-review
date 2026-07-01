@@ -116,13 +116,11 @@ export function buildReport({
     pricing = null,
     seededDiffs = null, // { [exp]: { [path]: <blok diff berkas> } }
 } = {}) {
-    // FOKUS 30-RULE: hanya tampilkan temuan CTDL & WIKA (buang OWASP/VAL dll)
-    // agar tabel, hitungan "Asal temuan", & ringkasan 100% konsisten dan sesuai
-    // narasi skripsi. (Metrik P/R/F1 dihitung TERPISAH, tidak terpengaruh ini.)
-    const findings = (inputFindings || []).filter((f) => {
-        const dom = domainOfRuleId(ruleIdOf(f.check_name) || "");
-        return dom === "CTDL" || dom === "WIKA";
-    });
+    // UPLOAD BEBAS: tampilkan SEMUA temuan yang lolos guard+dedup (bukan hanya
+    // CTDL/WIKA). Developer yang mengunggah kode ingin melihat seluruh pelanggaran
+    // yang ditemukan AI, termasuk famili aturan lain (AUTH/VAL/CRYPTO dll).
+    // Catatan: blok "Asal temuan" tetap menghitung khusus CTDL vs WIKA di bawah.
+    const findings = inputFindings || [];
 
     // 1) Severity breakdown + overall risk
     const counts = emptyCounts();

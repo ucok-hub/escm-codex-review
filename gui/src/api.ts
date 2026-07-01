@@ -5,7 +5,6 @@ import type {
   EvalResponse,
   HistorySummary,
   RulebookEntry,
-  SeededDataset,
   ScanProgress,
   ApiError,
   UatPayload,
@@ -27,15 +26,6 @@ async function parseJsonSafe<T>(res: Response): Promise<T> {
 
 export async function getHealth(): Promise<HealthResponse> {
   return parseJsonSafe<HealthResponse>(await fetch(`${BASE}/api/health`));
-}
-
-// Laporan rekaman default (statis, anti-gagal). null bila belum ada rekaman.
-export async function getRecordedReport(): Promise<EvalResponse | null> {
-  const data = await parseJsonSafe<EvalResponse | { ok: true; recorded: null }>(
-    await fetch(`${BASE}/api/report/recorded`),
-  );
-  if ("recorded" in data && data.recorded === null) return null;
-  return data as EvalResponse;
 }
 
 // Error dengan kode HTTP, agar pemanggil bisa menangani 401 (passcode) / 429.
@@ -146,14 +136,6 @@ export async function getHistory(): Promise<HistorySummary[]> {
 
 export async function getHistoryRun(id: string): Promise<EvalResponse> {
   return parseJsonSafe<EvalResponse>(await fetch(`${BASE}/api/history/${id}`));
-}
-
-// Isi dataset seeded (kedua patch EXP-01/EXP-02) untuk panel kode. Tanpa token.
-export async function getDataset(): Promise<SeededDataset[]> {
-  const d = await parseJsonSafe<{ datasets: SeededDataset[] }>(
-    await fetch(`${BASE}/api/dataset`),
-  );
-  return d.datasets;
 }
 
 // Rulebook tervalidasi Lead Dev IT WIKA (30 aturan). Tanpa token.

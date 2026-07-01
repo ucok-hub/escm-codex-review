@@ -1,7 +1,7 @@
 // ReportView.tsx — render "Codex Review Summary" bergaya GitLab dari satu run.
 // Komposisi ringkas: Ringkasan (+ keparahan) · Temuan utama (snippet kode
 // terfokus) · Asal temuan (CTDL vs WIKA) · Pemakaian & biaya · Kepatuhan
-// (collapsible). Hanya temuan CTDL & WIKA yang ditampilkan (filter di backend).
+// (collapsible). Menampilkan seluruh temuan yang lolos guard+dedup.
 import { Fragment, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import type {
@@ -414,7 +414,7 @@ export function ReportView({ data }: { data: EvalResponse }) {
                         </span>
                     </div>
                     <div>
-                        Contoh: <span className="mono">{dataset || "—"}</span>
+                        Berkas: <span className="mono">{dataset || "—"}</span>
                     </div>
                     <div>
                         Model: <span className="mono">{r.usage.model}</span>

@@ -283,97 +283,10 @@ app.post("/api/evaluate", async (req, res) => {
   }
 });
 
-// Evaluasi live seeded: scan kedua patch EXP → cocokkan → metrik → simpan riwayat.
-// Disimpan di path terpisah agar tidak menabrak endpoint streaming upload custom.
-app.post("/api/evaluate/seeded", async (req, res) => {
-  return res.status(410).json({
-    error:
-      "Endpoint seeded sudah dinonaktifkan. Unggah file kode melalui endpoint scan custom.",
-  });
-  try {
-    if (!accessOk(req, res)) return;
-    if (!rateLimitOk()) {
-      return res.status(429).json({
-        error: `Batas ${MAX_LIVE_PER_HOUR} scan live per jam tercapai. Coba lagi nanti.`,
-      });
-    }
-    const apiKey = getSecret("OPENAI_API_KEY");
-    if (!apiKey) {
-      return res.status(503).json({
-        error: "OPENAI_API_KEY belum diset. Isi .codex-review/.env.",
-      });
-    }
-    const prompt = fs.readFileSync(PROMPT_DIFF_PATH, "utf8");
-    const { rules } = getGroundTruth();
-
-    const cost = {
-      calls: 0,
-      prompt_tokens: 0,
-      completion_tokens: 0,
-      total_tokens: 0,
-      api: null,
-    };
-    const recordUsage = (kind, _i, u) => {
-      if (!u) return;
-      cost.api = cost.api || kind;
-      cost.calls += 1;
-      cost.prompt_tokens += Number(u.prompt_tokens || 0);
-      cost.completion_tokens += Number(u.completion_tokens || 0);
-      cost.total_tokens += Number(u.total_tokens || 0);
-    };
-
-    const allFindings = [];
-    const datasets = [];
-    for (const ds of SEED_PATCHES) {
-      if (!fs.existsSync(ds.path)) continue;
-      const patchText = fs.readFileSync(ds.path, "utf8");
-      datasets.push({ exp: ds.exp, sha256: sha256(patchText) });
-      const result = await reviewSource({
-        source: patchText,
-        inputType: "diff",
-        prompt,
-        controlCatalog,
-        openAiConfig: {
-          apiKey,
-          model: MODEL,
-          maxOutputTokens: MAX_OUTPUT_TOKENS,
-          disableResponses: DISABLE_RESPONSES,
-          recordUsage,
-        },
-        maxChunkChars: MAX_CHARS_PER_CHUNK,
-        concurrency: CONCURRENCY,
-        log: () => {},
-      });
-      // Tandai tiap temuan dengan dataset asalnya (EXP-01/EXP-02) agar
-      // tabel Top findings bisa menampilkan kolom "Sumber".
-      for (const issue of result.issues) issue.dataset = ds.exp;
-      allFindings.push(...result.issues);
-    }
-
-    const { perRule, metrics, fpFindings } = evaluate(allFindings, rules);
-    const { id } = recordRun(HISTORY_DIR, {
-      model: MODEL,
-      datasets,
-      metrics_live: metrics,
-      per_rule: perRule,
-      fp_findings: fpFindings,
-      findings: allFindings,
-      cost,
-      git_commit: process.env.CI_COMMIT_SHA || null,
-    });
-    const saved = getRun(HISTORY_DIR, id);
-    res.json(runToResponse(saved, "live"));
-  } catch (err) {
-    console.error("[server] /api/evaluate/seeded error:", err);
-    res
-      .status(500)
-      .json({ error: "Gagal menjalankan evaluasi. Cek log server." });
-  }
-});
-
 // Versi STREAMING dari evaluate: mengalirkan progres NYATA (NDJSON, satu objek
-// per baris) saat tiap potongan kode selesai diproses, lalu hasil akhir. Dipakai
-// GUI untuk loading bar yang jujur. Logika inti identik dengan /api/evaluate.
+// per baris) saat tiap file selesai diproses, lalu hasil akhir. Dipakai GUI untuk
+// loading bar yang jujur. Logika inti identik dengan /api/evaluate — TANPA skoring
+// ground-truth (upload bebas tidak punya kunci jawaban → metrics_live = null).
 app.post("/api/evaluate/stream", async (req, res) => {
   // Gerbang & limit dicek SEBELUM streaming (masih boleh balas JSON error).
   if (!accessOk(req, res)) return;
@@ -389,6 +302,20 @@ app.post("/api/evaluate/stream", async (req, res) => {
     });
   }
 
+  // Validasi unggahan SEBELUM membuka stream, agar error input tetap dibalas
+  // sebagai JSON biasa (bukan setelah headers NDJSON ter-flush).
+  const payload = req.body || {};
+  const uploadedFiles = Array.isArray(payload.files) ? payload.files : [];
+  const built = buildSyntheticDiffFromFiles(uploadedFiles, {
+    maxFiles: 5,
+    allowedExtensions: ALLOWED_UPLOAD_EXTENSIONS,
+  });
+  if (!built.files.length) {
+    return res.status(400).json({
+      error: "Unggah minimal 1 file .php atau .blade.php untuk dipindai.",
+    });
+  }
+
   res.setHeader("Content-Type", "application/x-ndjson; charset=utf-8");
   res.setHeader("Cache-Control", "no-cache, no-transform");
   res.setHeader("X-Accel-Buffering", "no");
@@ -396,20 +323,7 @@ app.post("/api/evaluate/stream", async (req, res) => {
   const send = (obj) => res.write(JSON.stringify(obj) + "\n");
 
   try {
-    const payload = req.body || {};
-    const uploadedFiles = Array.isArray(payload.files) ? payload.files : [];
-    const built = buildSyntheticDiffFromFiles(uploadedFiles, {
-      maxFiles: 5,
-      allowedExtensions: [".php"],
-    });
-    if (!built.files.length) {
-      return res.status(400).json({
-        error: "Unggah minimal 1 file PHP untuk dipindai.",
-      });
-    }
-
     const prompt = fs.readFileSync(PROMPT_DIFF_PATH, "utf8");
-    const { rules } = getGroundTruth();
 
     const cost = {
       calls: 0,
@@ -469,16 +383,16 @@ app.post("/api/evaluate/stream", async (req, res) => {
 
     send({
       type: "progress",
-      pct: 0.93,
-      label: "Mencocokkan temuan & menilai…",
+      pct: 0.95,
+      label: "Menyusun laporan…",
     });
-    const { perRule, metrics, fpFindings } = evaluate(allFindings, rules);
+    // Upload bebas: tidak ada ground-truth → tanpa skoring precision/recall.
     const { id } = recordRun(HISTORY_DIR, {
       model: MODEL,
       datasets,
-      metrics_live: metrics,
-      per_rule: perRule,
-      fp_findings: fpFindings,
+      metrics_live: null,
+      per_rule: [],
+      fp_findings: [],
       findings: allFindings,
       cost,
       git_commit: process.env.CI_COMMIT_SHA || null,
@@ -507,36 +421,6 @@ app.get("/api/history/:id", (req, res) => {
   const run = getRun(HISTORY_DIR, req.params.id);
   if (!run) return res.status(404).json({ error: "Run tidak ditemukan." });
   res.json(runToResponse(run, "history"));
-});
-
-// Laporan rekaman default (statis, anti-gagal saat demo). Dibekukan dari run
-// live terbaik via `npm run pin-report`, lalu di-commit agar ikut lintas device.
-app.get("/api/report/recorded", (req, res) => {
-  if (!fs.existsSync(RECORDED_PATH)) {
-    return res.json({ ok: true, recorded: null });
-  }
-  try {
-    const run = JSON.parse(fs.readFileSync(RECORDED_PATH, "utf8"));
-    res.json(runToResponse(run, "recorded"));
-  } catch (err) {
-    console.error("[server] gagal baca recorded_report:", err.message);
-    res.json({ ok: true, recorded: null });
-  }
-});
-
-// Konten dataset seeded (kedua patch EXP-01/EXP-02) untuk panel kode di GUI.
-app.get("/api/dataset", (req, res) => {
-  try {
-    const datasets = SEED_PATCHES.map((ds) => ({
-      exp: ds.exp,
-      file: path.relative(ROOT, ds.path).replace(/\\/g, "/"),
-      content: fs.readFileSync(ds.path, "utf8"),
-    }));
-    res.json({ ok: true, datasets });
-  } catch (err) {
-    console.error("[server] gagal baca dataset seeded:", err.message);
-    res.status(500).json({ error: "Gagal memuat dataset seeded." });
-  }
 });
 
 // UAT/SUS — TANPA gerbang ACCESS_CODE & tanpa rate-limit (anti-abuse = email unik).
