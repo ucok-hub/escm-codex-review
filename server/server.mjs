@@ -125,6 +125,7 @@ function runToResponse(run, source = "history") {
     model: run.model || MODEL,
     controlTotal: controlCatalog.riskById.size,
     pricing: pricingFromEnv(),
+    sources: run.files || null, // isi file untuk cuplikan kode per-temuan
   });
   return {
     ok: true,
@@ -266,6 +267,7 @@ app.post("/api/evaluate", async (req, res) => {
         exp: file.name,
         sha256: sha256(file.content),
       })),
+      files: built.files, // isi file untuk cuplikan kode per-temuan
       metrics_live: null,
       per_rule: [],
       fp_findings: [],
@@ -390,6 +392,7 @@ app.post("/api/evaluate/stream", async (req, res) => {
     const { id } = recordRun(HISTORY_DIR, {
       model: MODEL,
       datasets,
+      files: built.files, // isi file untuk cuplikan kode per-temuan
       metrics_live: null,
       per_rule: [],
       fp_findings: [],

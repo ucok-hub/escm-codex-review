@@ -114,7 +114,7 @@ export function buildReport({
     model = "gpt-4o-mini",
     controlTotal = 0,
     pricing = null,
-    seededDiffs = null, // { [exp]: { [path]: <blok diff berkas> } }
+    sources = null, // [{ name, content }] — isi file yang di-upload, untuk cuplikan kode
 } = {}) {
     // UPLOAD BEBAS: tampilkan SEMUA temuan yang lolos guard+dedup (bukan hanya
     // CTDL/WIKA). Developer yang mengunggah kode ingin melihat seluruh pelanggaran
@@ -140,62 +140,56 @@ export function buildReport({
             String(b.location?.path || ""),
         );
     });
-    // Snippet kode: blok diff berkas yang ditunjuk temuan, diambil dari patch
-    // seeded (seededDiffs). Inilah kode yang BENAR-BENAR direview AI, sehingga
-    // penguji bisa melihat & menilai validitasnya langsung.
-    const fileBlockFor = (exp, fpath) => {
-        if (!seededDiffs || !exp) return null;
-        const fileMap = seededDiffs[exp];
-        if (!fileMap) return null;
+    // Cuplikan kode TERFOKUS: ~6 baris di sekitar baris yang ditunjuk AI, diambil
+    // dari ISI FILE yang di-upload (sources). Baris target ditandai. Inilah kode
+    // yang BENAR-BENAR diperiksa AI, sehingga pengguna bisa menilai validitasnya
+    // langsung. (Nomor baris cuplikan = nomor baris asli file, mulai dari 1.)
+    const baseName = (p) => String(p || "").split(/[\\/]/).pop();
+    const sourceByName = new Map();
+    for (const s of Array.isArray(sources) ? sources : []) {
+        if (!s || !s.name) continue;
+        const content = String(s.content ?? "");
+        sourceByName.set(s.name, content);
+        sourceByName.set(baseName(s.name), content);
+    }
+    const contentFor = (fpath, fallbackName) => {
+        if (sourceByName.size === 0) return null;
         const p = String(fpath || "").replace(/^\/+/, "");
-        if (fileMap[p]) return fileMap[p];
-        for (const key of Object.keys(fileMap)) {
-            if (key.endsWith(p) || p.endsWith(key)) return fileMap[key];
+        if (p && sourceByName.has(p)) return sourceByName.get(p);
+        if (p && sourceByName.has(baseName(p)))
+            return sourceByName.get(baseName(p));
+        if (fallbackName && sourceByName.has(fallbackName))
+            return sourceByName.get(fallbackName);
+        // Cocokkan berdasarkan akhiran path (mis. "app/Enums/X.php" vs "X.php").
+        for (const [key, val] of sourceByName) {
+            if (key.endsWith(p) || (p && p.endsWith(key))) return val;
         }
         return null;
     };
-    // Snippet TERFOKUS: ~6 baris di sekitar baris yang dimaksud AI (nomor baris
-    // file baru), baris target ditandai. Bila baris tak ketemu → awal hunk.
-    // Mengembalikan array {type:'add'|'del'|'ctx', text, n, target} | null.
+    // Mengembalikan array {type:'ctx', text, n, target} | null. Bila baris di luar
+    // rentang file → tanpa penanda target (found=false), tampilkan awal file.
     const CTX = 6;
-    const buildSnippet = (exp, fpath, targetLine) => {
-        const block = fileBlockFor(exp, fpath);
-        if (!block) return null;
-        const rows = [];
-        let newNo = 0;
-        for (const ln of block.split("\n")) {
-            if (ln.startsWith("@@")) {
-                const m = ln.match(/\+(\d+)(?:,\d+)? @@/);
-                if (m) newNo = parseInt(m[1], 10);
-                continue;
-            }
-            if (
-                ln.startsWith("diff --git") ||
-                ln.startsWith("index ") ||
-                ln.startsWith("--- ") ||
-                ln.startsWith("+++ ")
-            ) {
-                continue;
-            }
-            if (ln.startsWith("+")) {
-                rows.push({ type: "add", text: ln.slice(1), n: newNo });
-                newNo++;
-            } else if (ln.startsWith("-")) {
-                rows.push({ type: "del", text: ln.slice(1), n: null });
-            } else {
-                rows.push({ type: "ctx", text: ln.replace(/^ /, ""), n: newNo });
-                newNo++;
-            }
-        }
-        if (rows.length === 0) return null;
-        let ti = rows.findIndex((r) => targetLine > 0 && r.n === targetLine);
-        const found = ti >= 0;
-        if (!found) ti = 0;
+    const buildSnippet = (fpath, targetLine, fallbackName) => {
+        const content = contentFor(fpath, fallbackName);
+        if (content == null) return null;
+        const lines = content.replace(/\r\n/g, "\n").split("\n");
+        if (lines.length && lines[lines.length - 1] === "") lines.pop();
+        if (!lines.length) return null;
+        const idx = Number(targetLine) - 1;
+        const found = idx >= 0 && idx < lines.length;
+        const ti = found ? idx : 0;
         const start = Math.max(0, ti - CTX);
-        const end = Math.min(rows.length, ti + CTX + 1);
-        return rows
-            .slice(start, end)
-            .map((r, i) => ({ ...r, target: found && start + i === ti }));
+        const end = Math.min(lines.length, ti + CTX + 1);
+        const rows = [];
+        for (let i = start; i < end; i++) {
+            rows.push({
+                type: "ctx",
+                text: lines[i],
+                n: i + 1,
+                target: found && i === ti,
+            });
+        }
+        return rows.length ? rows : null;
     };
     const topFindings = sorted.map((f) => {
         const full = cleanCheck(f.check_name); // tanpa prefix "SAST |"
@@ -213,9 +207,9 @@ export function buildReport({
             recommendation: f.recommendation || "",
             // potongan kode terfokus di sekitar baris yang dimaksud (atau null)
             snippet: buildSnippet(
-                f.dataset,
                 f.location?.path,
                 f.location?.lines?.begin || 0,
+                f.dataset,
             ),
         };
     });
