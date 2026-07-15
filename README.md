@@ -132,7 +132,7 @@ Lihat [`.env.example`](.env.example) untuk daftar lengkap.
 | WIKA-Q14 | Multi-layer authentication | High |
 | WIKA-Q15 | CSRF protection tanpa exception | High |
 
-Daftar kontrol lengkap (baseline OWASP + Citadel, 30 kontrol): [`controls/controls.csv`](controls/controls.csv).
+Daftar kontrol lengkap (30 kontrol, CTDL + WIKA): [`controls/controls.csv`](controls/controls.csv).
 
 ---
 
@@ -150,7 +150,7 @@ Daftar kontrol lengkap (baseline OWASP + Citadel, 30 kontrol): [`controls/contro
 │   └── src/                # App, komponen, styles
 ├── scripts/                # mesin review (reviewEngine.mjs) + CLI (run_codex.mjs)
 ├── prompts/                # system prompt berlapis (diff / full / security)
-├── controls/               # controls.csv + owasp_controls.json
+├── controls/               # controls.csv + controls.json (30 kontrol: CTDL + WIKA)
 ├── tests/                  # patch seeded violation (ground truth)
 ├── test/                   # unit test (node --test)
 ├── render.yaml             # Render Blueprint

@@ -22,10 +22,8 @@ Apply these security-specific rules from the codified knowledge base:
 4. **CTDL-04/WIKA-Q14**: Auth middleware mandatory on protected routes — `cek_login`, `basic_auth`, `jwt.verify`.
 5. **CTDL-11**: Permission checks — `checkAccessPermission()` required at start of controller methods.
 6. **WIKA-Q07**: Tenant isolation — procurement queries must use `ESCM::scopeProject(auth()->user())`.
-7. **WIKA-Q08/LOG-02**: Sensitive data masking — passwords, PINs, tokens must never appear in logs.
-8. **WIKA-Q15/SESS-06**: CSRF protection — `VerifyCsrfToken::$except` must be empty array.
-9. **AUTH-01**: Strong password hashing — bcrypt/argon2, no plaintext.
-10. **AUTH-08**: No hardcoded credentials — no secrets in code or env samples.
+7. **WIKA-Q08**: Sensitive data masking — passwords, PINs, tokens must never appear in logs.
+8. **WIKA-Q15**: CSRF protection — `VerifyCsrfToken::$except` must be empty array.
 
 ## Scope
 
@@ -58,7 +56,7 @@ For EVERY issue you report:
 - Set severity: `critical | major | minor | info` (no other values).
 - Provide a repository-relative file path and a 1-based begin line.
 - Include a stable fingerprint string.
-- Include optional references (OWASP, CWE, Laravel docs) when helpful.
+- Include optional references (CWE, Laravel docs) when helpful.
 - In `recommendation`, provide an actionable fix with code example when possible.
 
 ```json

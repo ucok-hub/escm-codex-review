@@ -22,7 +22,7 @@ test("severity breakdown + overall risk", () => {
             f("SAST | [CTDL-01] x", "app/Http/Controllers/Foo.php", "critical"),
             f("SAST | [WIKA-Q07] y", "app/Models/Bar.php", "major"),
         ],
-        controlTotal: 51,
+        controlTotal: 30,
     });
     assert.equal(r.severity.critical, 1);
     assert.equal(r.severity.major, 1);
@@ -35,9 +35,9 @@ test("component overview dihitung CTDL vs WIKA (famili lain diabaikan)", () => {
             f("SAST | [CTDL-01] x", "a/Foo.php"),
             f("SAST | [CTDL-11] y", "a/Foo.php"),
             f("SAST | [WIKA-Q07] z", "a/Bar.php"),
-            f("SAST | [AUTH-08] hardcoded", "a/Baz.php"), // bukan CTDL/WIKA
+            f("SAST | [EXT-01] hardcoded", "a/Baz.php"), // bukan CTDL/WIKA
         ],
-        controlTotal: 51,
+        controlTotal: 30,
     });
     assert.equal(r.componentByDomain.CTDL, 2);
     assert.equal(r.componentByDomain.WIKA, 1);
@@ -48,7 +48,7 @@ test("top findings dibatasi, dibersihkan, & komponen benar", () => {
         findings: [
             f("SAST | [CTDL-01] Raw SQL", "app/Http/Controllers/Foo.php", "major", 12),
         ],
-        controlTotal: 51,
+        controlTotal: 30,
         topN: 5,
     });
     assert.equal(r.topFindings.length, 1);
@@ -60,10 +60,10 @@ test("top findings dibatasi, dibersihkan, & komponen benar", () => {
 
 test("top findings: kolom 'source' dari dataset asal (EXP)", () => {
     const tagged = { ...f("SAST | [CTDL-01] x", "a/Foo.php"), dataset: "EXP-02" };
-    const r = buildReport({ findings: [tagged], controlTotal: 51 });
+    const r = buildReport({ findings: [tagged], controlTotal: 30 });
     assert.equal(r.topFindings[0].source, "EXP-02");
     // tanpa tag → null (mis. run lama)
-    const r2 = buildReport({ findings: [f("SAST | [CTDL-01] x", "a/Foo.php")], controlTotal: 51 });
+    const r2 = buildReport({ findings: [f("SAST | [CTDL-01] x", "a/Foo.php")], controlTotal: 30 });
     assert.equal(r2.topFindings[0].source, null);
 });
 
@@ -73,9 +73,9 @@ test("rulebook compliance: kontrol unik / total", () => {
             f("SAST | [CTDL-01] x", "a/Foo.php"),
             f("SAST | [CTDL-01] dup", "a/Foo2.php"),
         ],
-        controlTotal: 51,
+        controlTotal: 30,
     });
-    assert.equal(r.rulebook.total, 51);
+    assert.equal(r.rulebook.total, 30);
     assert.equal(r.rulebook.triggered, 1); // CTDL-01 dihitung sekali
     assert.ok(r.rulebook.sampleIds.includes("CTDL-01"));
 });
@@ -105,7 +105,7 @@ test("usage & estimasi biaya dihitung bila pricing ada", () => {
         findings: [],
         cost,
         pricing: { inPer1M: 0.15, outPer1M: 0.6, currency: "USD" },
-        controlTotal: 51,
+        controlTotal: 30,
     });
     assert.equal(r.usage.estimatedCost.amount, 0.75);
     assert.equal(r.usage.calls, 2);
@@ -115,6 +115,6 @@ test("helper murni: groupType, domainOfRuleId, overallRiskOf", () => {
     assert.equal(groupType("SCA | dep foo"), "SCA");
     assert.equal(groupType("SAST | [CTDL-01] x"), "SAST");
     assert.equal(domainOfRuleId("WIKA-Q07"), "WIKA");
-    assert.equal(domainOfRuleId("AUTH-08"), "OTHER");
+    assert.equal(domainOfRuleId("EXT-01"), "OTHER");
     assert.equal(overallRiskOf({ blocker: 0, critical: 0, major: 0, minor: 1, info: 0 }), "minor");
 });
