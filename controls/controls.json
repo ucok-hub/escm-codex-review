@@ -6,7 +6,7 @@
             "title": "Wajib Eloquent ORM, dilarang raw query",
             "risk": "High",
             "methods": "Code review, Static analysis",
-            "evidence": "Semua akses DB harus via Eloquent. DB::raw()/DB::select() dilarang kecuali aggregasi kompleks. Ref: OWASP ASVS V5, CWE-89"
+            "evidence": "Semua akses DB harus via Eloquent. DB::raw()/DB::select() dilarang kecuali aggregasi kompleks. Ref: ASVS V5, CWE-89"
         },
         {
             "id": "CTDL-02",
@@ -30,7 +30,7 @@
             "title": "Middleware auth pada protected routes",
             "risk": "High",
             "methods": "Code review, Config review",
-            "evidence": "Route admin: cek_login+internal_placement. Route API: basic_auth/jwt.verify. Ref: OWASP ASVS V4, CWE-862"
+            "evidence": "Route admin: cek_login+internal_placement. Route API: basic_auth/jwt.verify. Ref: ASVS V4, CWE-862"
         },
         {
             "id": "CTDL-05",
@@ -86,7 +86,7 @@
             "title": "Permission check via checkAccessPermission()",
             "risk": "High",
             "methods": "Code review, Static analysis",
-            "evidence": "Setiap controller method bisnis HARUS checkAccessPermission($permission) di awal. Format: feature:action. Ref: OWASP ASVS V4"
+            "evidence": "Setiap controller method bisnis HARUS checkAccessPermission($permission) di awal. Format: feature:action. Ref: ASVS V4"
         },
         {
             "id": "CTDL-12",
@@ -182,7 +182,7 @@
             "title": "Password/PIN masking di semua log",
             "risk": "High",
             "methods": "Code review, Static analysis",
-            "evidence": "Middleware logging HARUS masking: password, password_confirm, pass, pin. Ref: OWASP LOG-02, CWE-532"
+            "evidence": "Middleware logging HARUS masking: password, password_confirm, pass, pin. Ref: CWE-532"
         },
         {
             "id": "WIKA-Q09",
@@ -239,174 +239,6 @@
             "risk": "High",
             "methods": "Code review, Config review",
             "evidence": "CSRF aktif untuk semua POST/PUT/DELETE. VerifyCsrfToken $except HARUS kosong. Ref: CWE-352"
-        },
-        {
-            "id": "AUTH-01",
-            "domain": "Authentication",
-            "title": "Hash kata sandi kuat",
-            "risk": "High",
-            "methods": "Code review, Config review",
-            "evidence": "Analisis kode; audit konfigurasi hashing (argon2/bcrypt/scrypt)"
-        },
-        {
-            "id": "AUTH-08",
-            "domain": "Authentication",
-            "title": "Tidak ada kredensial hardcoded",
-            "risk": "High",
-            "methods": "Code review, Tool scan",
-            "evidence": "Gitleaks/semgrep; temuan dievaluasi, bukti lokasi"
-        },
-        {
-            "id": "AUTH-10",
-            "domain": "Authentication",
-            "title": "JWT aman",
-            "risk": "Medium",
-            "methods": "Code review, Config review",
-            "evidence": "Periksa expiry, signing alg, claim sensitif"
-        },
-        {
-            "id": "SESS-02",
-            "domain": "Session",
-            "title": "Cookie flag aman",
-            "risk": "High",
-            "methods": "Test, Config review",
-            "evidence": "HttpOnly, Secure, SameSite"
-        },
-        {
-            "id": "SESS-06",
-            "domain": "Session",
-            "title": "Proteksi CSRF",
-            "risk": "High",
-            "methods": "Test, Code review",
-            "evidence": "Anti-CSRF token; same-site; double submit"
-        },
-        {
-            "id": "VAL-02",
-            "domain": "Validation & Encoding",
-            "title": "Parameterized queries",
-            "risk": "High",
-            "methods": "Code review, Test",
-            "evidence": "Gunakan parameter/ORM; tanpa string-concat SQL"
-        },
-        {
-            "id": "VAL-03",
-            "domain": "Validation & Encoding",
-            "title": "Escaping output",
-            "risk": "High",
-            "methods": "Code review, Test",
-            "evidence": "HTML/JSON/template encoded sesuai konteks"
-        },
-        {
-            "id": "VAL-04",
-            "domain": "Validation & Encoding",
-            "title": "CSP diterapkan",
-            "risk": "Medium",
-            "methods": "Config review",
-            "evidence": "CSP policy minimal 'self'; nonces untuk inline"
-        },
-        {
-            "id": "VAL-06",
-            "domain": "Validation & Encoding",
-            "title": "Security headers lain",
-            "risk": "Medium",
-            "methods": "Config review",
-            "evidence": "XFO, X-CTO, Referrer-Policy"
-        },
-        {
-            "id": "VAL-08",
-            "domain": "Validation & Encoding",
-            "title": "Open redirect",
-            "risk": "Medium",
-            "methods": "Test",
-            "evidence": "Validasi target; whitelist"
-        },
-        {
-            "id": "CRYPTO-01",
-            "domain": "Crypto & Secrets",
-            "title": "TLS modern",
-            "risk": "High",
-            "methods": "Config review",
-            "evidence": "TLS1.2+/ciphers; redirect 80→443"
-        },
-        {
-            "id": "CRYPTO-02",
-            "domain": "Crypto & Secrets",
-            "title": "HSTS aktif",
-            "risk": "Medium",
-            "methods": "Config review",
-            "evidence": "max-age≥6 bulan; includeSubDomains opsional"
-        },
-        {
-            "id": "CRYPTO-06",
-            "domain": "Crypto & Secrets",
-            "title": "Randomness kuat",
-            "risk": "High",
-            "methods": "Code review",
-            "evidence": "CSPRNG untuk token/ID; bukan math/rand"
-        },
-        {
-            "id": "CRYPTO-07",
-            "domain": "Crypto & Secrets",
-            "title": "No custom crypto",
-            "risk": "High",
-            "methods": "Code review",
-            "evidence": "Hanya lib tervalidasi"
-        },
-        {
-            "id": "API-02",
-            "domain": "API Security",
-            "title": "Rate limit & throttling",
-            "risk": "High",
-            "methods": "Test",
-            "evidence": "Limiter per user/IP/token/endpoint"
-        },
-        {
-            "id": "API-05",
-            "domain": "API Security",
-            "title": "CORS untuk API",
-            "risk": "Medium",
-            "methods": "Config review",
-            "evidence": "Origin/header/method allowlist"
-        },
-        {
-            "id": "API-06",
-            "domain": "API Security",
-            "title": "Pagination & limits",
-            "risk": "Medium",
-            "methods": "Code review, Test",
-            "evidence": "Limit/offset maksimum; cegah mass assignment"
-        },
-        {
-            "id": "LOG-02",
-            "domain": "Logging & Monitoring",
-            "title": "No sensitive logging",
-            "risk": "High",
-            "methods": "Code review",
-            "evidence": "Tidak log password/token/secret/PII"
-        },
-        {
-            "id": "CONF-08",
-            "domain": "Configuration",
-            "title": "Infra as Code aman",
-            "risk": "Medium",
-            "methods": "Code review",
-            "evidence": "Hadolint, policy-as-code, best practices Dockerfile"
-        },
-        {
-            "id": "AVA-01",
-            "domain": "Availability",
-            "title": "Rate limiting global",
-            "risk": "High",
-            "methods": "Test",
-            "evidence": "Burst control per IP/user/global"
-        },
-        {
-            "id": "AVA-02",
-            "domain": "Availability",
-            "title": "Circuit breaker & timeouts",
-            "risk": "Medium",
-            "methods": "Code review",
-            "evidence": "Timeout dan retry jitter pada client/DB"
         }
     ]
 }
