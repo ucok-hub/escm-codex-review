@@ -71,7 +71,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "app.tsx",
-      "community_name": "API Request Handling",
+      "community_name": "App UI and Access",
       "id": "gui_src_app"
     },
     {
@@ -82,7 +82,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "app()",
-      "community_name": "API Request Handling",
+      "community_name": "API and Access Management",
       "id": "gui_src_app_app"
     },
     {
@@ -93,7 +93,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "api.ts",
-      "community_name": "API Request Handling",
+      "community_name": "API and Access Management",
       "id": "gui_src_api"
     },
     {
@@ -104,7 +104,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "parsejsonsafe()",
-      "community_name": "API Request Handling",
+      "community_name": "API and Access Management",
       "id": "gui_src_api_parsejsonsafe"
     },
     {
@@ -115,7 +115,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "gethealth()",
-      "community_name": "API Request Handling",
+      "community_name": "API and Access Management",
       "id": "gui_src_api_gethealth"
     },
     {
@@ -126,7 +126,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "apihttperror",
-      "community_name": "API Request Handling",
+      "community_name": "API and Access Management",
       "id": "gui_src_api_apihttperror"
     },
     {
@@ -137,7 +137,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": ".constructor()",
-      "community_name": "API Request Handling",
+      "community_name": "API and Access Management",
       "id": "gui_src_api_apihttperror_constructor"
     },
     {
@@ -148,7 +148,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "setaccesscode()",
-      "community_name": "API Request Handling",
+      "community_name": "App UI and Access",
       "id": "gui_src_api_setaccesscode"
     },
     {
@@ -159,7 +159,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "clearaccesscode()",
-      "community_name": "API Request Handling",
+      "community_name": "API and Access Management",
       "id": "gui_src_api_clearaccesscode"
     },
     {
@@ -170,7 +170,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "accessheaders()",
-      "community_name": "API Request Handling",
+      "community_name": "API and Access Management",
       "id": "gui_src_api_accessheaders"
     },
     {
@@ -181,7 +181,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "postevaluate()",
-      "community_name": "API Request Handling",
+      "community_name": "API and Access Management",
       "id": "gui_src_api_postevaluate"
     },
     {
@@ -192,7 +192,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "postevaluatestream()",
-      "community_name": "API Request Handling",
+      "community_name": "API and Access Management",
       "id": "gui_src_api_postevaluatestream"
     },
     {
@@ -203,7 +203,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "gethistory()",
-      "community_name": "API Request Handling",
+      "community_name": "API and Access Management",
       "id": "gui_src_api_gethistory"
     },
     {
@@ -214,7 +214,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "gethistoryrun()",
-      "community_name": "API Request Handling",
+      "community_name": "API and Access Management",
       "id": "gui_src_api_gethistoryrun"
     },
     {
@@ -225,7 +225,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "getrulebook()",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_api_getrulebook"
     },
     {
@@ -236,7 +236,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "checkuatemail()",
-      "community_name": "API Request Handling",
+      "community_name": "API and Access Management",
       "id": "gui_src_api_checkuatemail"
     },
     {
@@ -247,7 +247,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "postuat()",
-      "community_name": "API Request Handling",
+      "community_name": "API and Access Management",
       "id": "gui_src_api_postuat"
     },
     {
@@ -258,7 +258,7 @@
       "_origin": "ast",
       "community": 16,
       "norm_label": "dropdown.tsx",
-      "community_name": "Dropdown UI Components",
+      "community_name": "Dropdown UI Component",
       "id": "gui_src_components_dropdown"
     },
     {
@@ -269,7 +269,7 @@
       "_origin": "ast",
       "community": 16,
       "norm_label": "option",
-      "community_name": "Dropdown UI Components",
+      "community_name": "Dropdown UI Component",
       "id": "gui_src_components_dropdown_option"
     },
     {
@@ -280,7 +280,7 @@
       "_origin": "ast",
       "community": 16,
       "norm_label": "props",
-      "community_name": "Dropdown UI Components",
+      "community_name": "Dropdown UI Component",
       "id": "gui_src_components_dropdown_props"
     },
     {
@@ -291,7 +291,7 @@
       "_origin": "ast",
       "community": 16,
       "norm_label": "dropdown()",
-      "community_name": "Dropdown UI Components",
+      "community_name": "Dropdown UI Component",
       "id": "gui_src_components_dropdown_dropdown"
     },
     {
@@ -302,7 +302,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "reportview.tsx",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_components_reportview"
     },
     {
@@ -313,7 +313,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "sev_label",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_components_reportview_sev_label"
     },
     {
@@ -324,7 +324,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "sev_short",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_components_reportview_sev_short"
     },
     {
@@ -335,7 +335,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "riskbadge()",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_components_reportview_riskbadge"
     },
     {
@@ -346,7 +346,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "sectiontitle()",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_components_reportview_sectiontitle"
     },
     {
@@ -357,7 +357,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "rulepill()",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_components_reportview_rulepill"
     },
     {
@@ -368,7 +368,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "executive()",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_components_reportview_executive"
     },
     {
@@ -379,7 +379,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "usagecost()",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_components_reportview_usagecost"
     },
     {
@@ -390,7 +390,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "snippet()",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_components_reportview_snippet"
     },
     {
@@ -401,7 +401,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "topfindings()",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_components_reportview_topfindings"
     },
     {
@@ -412,7 +412,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "dombar()",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_components_reportview_dombar"
     },
     {
@@ -423,7 +423,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "componentoverview()",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_components_reportview_componentoverview"
     },
     {
@@ -434,7 +434,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "rulebook()",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_components_reportview_rulebook"
     },
     {
@@ -445,7 +445,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "reportview()",
-      "community_name": "API Request Handling",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_components_reportview_reportview"
     },
     {
@@ -456,7 +456,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "rulebookmodal.tsx",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_components_rulebookmodal"
     },
     {
@@ -467,7 +467,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "props",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_components_rulebookmodal_props"
     },
     {
@@ -478,7 +478,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "contohpelanggaran()",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_components_rulebookmodal_contohpelanggaran"
     },
     {
@@ -489,7 +489,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "rulebookmodal()",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_components_rulebookmodal_rulebookmodal"
     },
     {
@@ -500,7 +500,7 @@
       "_origin": "ast",
       "community": 17,
       "norm_label": "uatconsent.tsx",
-      "community_name": "UAT Consent Components",
+      "community_name": "UAT Consent UI",
       "id": "gui_src_components_uat_uatconsent"
     },
     {
@@ -511,7 +511,7 @@
       "_origin": "ast",
       "community": 17,
       "norm_label": "props",
-      "community_name": "UAT Consent Components",
+      "community_name": "UAT Consent UI",
       "id": "gui_src_components_uat_uatconsent_props"
     },
     {
@@ -522,7 +522,7 @@
       "_origin": "ast",
       "community": 17,
       "norm_label": "uatconsent()",
-      "community_name": "UAT Consent Components",
+      "community_name": "UAT Consent UI",
       "id": "gui_src_components_uat_uatconsent_uatconsent"
     },
     {
@@ -533,7 +533,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "uatdemographics.tsx",
-      "community_name": "UAT Demographics Input",
+      "community_name": "UAT Demographics and Validation",
       "id": "gui_src_components_uat_uatdemographics"
     },
     {
@@ -544,7 +544,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "peran_opts",
-      "community_name": "UAT Demographics Input",
+      "community_name": "UAT Demographics and Validation",
       "id": "gui_src_components_uat_uatdemographics_peran_opts"
     },
     {
@@ -555,7 +555,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "pengalaman_opts",
-      "community_name": "UAT Demographics Input",
+      "community_name": "UAT Demographics and Validation",
       "id": "gui_src_components_uat_uatdemographics_pengalaman_opts"
     },
     {
@@ -566,7 +566,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "freq_opts",
-      "community_name": "UAT Demographics Input",
+      "community_name": "UAT Demographics and Validation",
       "id": "gui_src_components_uat_uatdemographics_freq_opts"
     },
     {
@@ -577,7 +577,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "demovalue",
-      "community_name": "UAT Demographics Input",
+      "community_name": "UAT Demographics and Validation",
       "id": "gui_src_components_uat_uatdemographics_demovalue"
     },
     {
@@ -588,7 +588,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "props",
-      "community_name": "UAT Demographics Input",
+      "community_name": "UAT Demographics and Validation",
       "id": "gui_src_components_uat_uatdemographics_props"
     },
     {
@@ -599,7 +599,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "common_domain_typos",
-      "community_name": "UAT Demographics Input",
+      "community_name": "UAT Demographics and Validation",
       "id": "gui_src_components_uat_uatdemographics_common_domain_typos"
     },
     {
@@ -610,7 +610,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "normalizeemail()",
-      "community_name": "UAT Demographics Input",
+      "community_name": "UAT Demographics and Validation",
       "id": "gui_src_components_uat_uatdemographics_normalizeemail"
     },
     {
@@ -621,7 +621,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "validateemailinput()",
-      "community_name": "UAT Demographics Input",
+      "community_name": "UAT Demographics and Validation",
       "id": "gui_src_components_uat_uatdemographics_validateemailinput"
     },
     {
@@ -632,7 +632,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "uatdemographics()",
-      "community_name": "UAT Demographics Input",
+      "community_name": "UAT Demographics and Validation",
       "id": "gui_src_components_uat_uatdemographics_uatdemographics"
     },
     {
@@ -643,7 +643,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "types.ts",
-      "community_name": "Rulebook UI Components",
+      "community_name": "Metrics and Reporting Data",
       "id": "gui_src_types"
     },
     {
@@ -654,7 +654,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "severity",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_types_severity"
     },
     {
@@ -665,7 +665,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "confidence",
-      "community_name": "Rulebook UI Components",
+      "community_name": "Metrics and Reporting Data",
       "id": "gui_src_types_confidence"
     },
     {
@@ -676,7 +676,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "issuelocation",
-      "community_name": "Rulebook UI Components",
+      "community_name": "Metrics and Reporting Data",
       "id": "gui_src_types_issuelocation"
     },
     {
@@ -687,7 +687,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "issue",
-      "community_name": "Rulebook UI Components",
+      "community_name": "Metrics and Reporting Data",
       "id": "gui_src_types_issue"
     },
     {
@@ -698,7 +698,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "severitycounts",
-      "community_name": "Rulebook UI Components",
+      "community_name": "Metrics and Reporting Data",
       "id": "gui_src_types_severitycounts"
     },
     {
@@ -709,7 +709,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "coststats",
-      "community_name": "Rulebook UI Components",
+      "community_name": "Metrics and Reporting Data",
       "id": "gui_src_types_coststats"
     },
     {
@@ -720,7 +720,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "healthresponse",
-      "community_name": "API Request Handling",
+      "community_name": "App UI and Access",
       "id": "gui_src_types_healthresponse"
     },
     {
@@ -731,7 +731,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "apierror",
-      "community_name": "API Request Handling",
+      "community_name": "API and Access Management",
       "id": "gui_src_types_apierror"
     },
     {
@@ -742,7 +742,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "seededdataset",
-      "community_name": "Rulebook UI Components",
+      "community_name": "Metrics and Reporting Data",
       "id": "gui_src_types_seededdataset"
     },
     {
@@ -753,7 +753,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "scanprogress",
-      "community_name": "API Request Handling",
+      "community_name": "App UI and Access",
       "id": "gui_src_types_scanprogress"
     },
     {
@@ -764,7 +764,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "requeststatus",
-      "community_name": "API Request Handling",
+      "community_name": "App UI and Access",
       "id": "gui_src_types_requeststatus"
     },
     {
@@ -775,7 +775,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "domain",
-      "community_name": "Rulebook UI Components",
+      "community_name": "Metrics and Reporting Data",
       "id": "gui_src_types_domain"
     },
     {
@@ -786,7 +786,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "verdict",
-      "community_name": "Rulebook UI Components",
+      "community_name": "Metrics and Reporting Data",
       "id": "gui_src_types_verdict"
     },
     {
@@ -797,7 +797,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "officialmetrics",
-      "community_name": "Rulebook UI Components",
+      "community_name": "Metrics and Reporting Data",
       "id": "gui_src_types_officialmetrics"
     },
     {
@@ -808,7 +808,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "livemetrics",
-      "community_name": "Rulebook UI Components",
+      "community_name": "Metrics and Reporting Data",
       "id": "gui_src_types_livemetrics"
     },
     {
@@ -819,7 +819,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "perruleresult",
-      "community_name": "Rulebook UI Components",
+      "community_name": "Metrics and Reporting Data",
       "id": "gui_src_types_perruleresult"
     },
     {
@@ -830,7 +830,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "reportexecutive",
-      "community_name": "Rulebook UI Components",
+      "community_name": "Metrics and Reporting Data",
       "id": "gui_src_types_reportexecutive"
     },
     {
@@ -841,7 +841,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "reportestimatedcost",
-      "community_name": "Rulebook UI Components",
+      "community_name": "Metrics and Reporting Data",
       "id": "gui_src_types_reportestimatedcost"
     },
     {
@@ -852,7 +852,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "reportusage",
-      "community_name": "Rulebook UI Components",
+      "community_name": "Metrics and Reporting Data",
       "id": "gui_src_types_reportusage"
     },
     {
@@ -863,7 +863,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "snippetline",
-      "community_name": "Rulebook UI Components",
+      "community_name": "Metrics and Reporting Data",
       "id": "gui_src_types_snippetline"
     },
     {
@@ -874,7 +874,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "reporttopfinding",
-      "community_name": "Rulebook UI Components",
+      "community_name": "Metrics and Reporting Data",
       "id": "gui_src_types_reporttopfinding"
     },
     {
@@ -885,7 +885,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "rulebookentry",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_types_rulebookentry"
     },
     {
@@ -896,7 +896,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "reportrulebook",
-      "community_name": "Rulebook UI Components",
+      "community_name": "Metrics and Reporting Data",
       "id": "gui_src_types_reportrulebook"
     },
     {
@@ -907,7 +907,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "reportmetrics",
-      "community_name": "Rulebook UI Components",
+      "community_name": "Metrics and Reporting Data",
       "id": "gui_src_types_reportmetrics"
     },
     {
@@ -918,7 +918,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "reportdata",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_types_reportdata"
     },
     {
@@ -929,7 +929,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "reportsource",
-      "community_name": "Rulebook UI Components",
+      "community_name": "Metrics and Reporting Data",
       "id": "gui_src_types_reportsource"
     },
     {
@@ -940,7 +940,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "evalresponse",
-      "community_name": "Rulebook UI Components",
+      "community_name": "API and Access Management",
       "id": "gui_src_types_evalresponse"
     },
     {
@@ -951,7 +951,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "historysummary",
-      "community_name": "API Request Handling",
+      "community_name": "API and Access Management",
       "id": "gui_src_types_historysummary"
     },
     {
@@ -962,7 +962,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "uatpayload",
-      "community_name": "API Request Handling",
+      "community_name": "API and Access Management",
       "id": "gui_src_types_uatpayload"
     },
     {
@@ -973,7 +973,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "emailcheck",
-      "community_name": "API Request Handling",
+      "community_name": "API and Access Management",
       "id": "gui_src_types_emailcheck"
     },
     {
@@ -984,7 +984,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "uatstep",
-      "community_name": "Rulebook UI Components",
+      "community_name": "Metrics and Reporting Data",
       "id": "gui_src_types_uatstep"
     },
     {
@@ -995,7 +995,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "run_codex.mjs",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex"
     },
     {
@@ -1006,7 +1006,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "args",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_args"
     },
     {
@@ -1017,7 +1017,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "parseargs()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_parseargs"
     },
     {
@@ -1028,7 +1028,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "options",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_options"
     },
     {
@@ -1039,7 +1039,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "rawlog()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_rawlog"
     },
     {
@@ -1050,7 +1050,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "getsecret()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_getsecret"
     },
     {
@@ -1061,7 +1061,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "apikey",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_apikey"
     },
     {
@@ -1072,7 +1072,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "maxchunkchars",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_maxchunkchars"
     },
     {
@@ -1083,7 +1083,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "concurrency",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_concurrency"
     },
     {
@@ -1094,7 +1094,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "allowedexts",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_allowedexts"
     },
     {
@@ -1105,7 +1105,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "maxoutputtokens",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_maxoutputtokens"
     },
     {
@@ -1116,7 +1116,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "promptbase",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_promptbase"
     },
     {
@@ -1127,7 +1127,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "envinper1m",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_envinper1m"
     },
     {
@@ -1138,7 +1138,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "envoutper1m",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_envoutper1m"
     },
     {
@@ -1149,7 +1149,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "envinper1k",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_envinper1k"
     },
     {
@@ -1160,7 +1160,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "envoutper1k",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_envoutper1k"
     },
     {
@@ -1171,7 +1171,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "coststats",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_coststats"
     },
     {
@@ -1182,7 +1182,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "controlcatalog",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_controlcatalog"
     },
     {
@@ -1193,7 +1193,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "recordusage()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_recordusage"
     },
     {
@@ -1204,7 +1204,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "isprobablybinary()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_isprobablybinary"
     },
     {
@@ -1215,7 +1215,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "mainpieces",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_mainpieces"
     },
     {
@@ -1226,7 +1226,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "securityonlypieces",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_securityonlypieces"
     },
     {
@@ -1237,7 +1237,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "knownfiles",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_knownfiles"
     },
     {
@@ -1248,7 +1248,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "chunksmain",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_run_codex_chunksmain"
     },
     {
@@ -1259,7 +1259,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "server.mjs",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server"
     },
     {
@@ -1270,7 +1270,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "__dirname",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_dirname"
     },
     {
@@ -1281,7 +1281,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "root",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_root"
     },
     {
@@ -1292,7 +1292,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "repo_root",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_repo_root"
     },
     {
@@ -1303,7 +1303,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "loadenvfile()",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_loadenvfile"
     },
     {
@@ -1314,7 +1314,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "getsecret()",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_getsecret"
     },
     {
@@ -1325,7 +1325,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "port",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_port"
     },
     {
@@ -1336,7 +1336,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "max_output_tokens",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_max_output_tokens"
     },
     {
@@ -1347,7 +1347,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "concurrency",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_concurrency"
     },
     {
@@ -1358,7 +1358,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "max_chars_per_chunk",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_max_chars_per_chunk"
     },
     {
@@ -1369,7 +1369,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "access_code",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_access_code"
     },
     {
@@ -1380,7 +1380,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "max_live_per_hour",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_max_live_per_hour"
     },
     {
@@ -1391,7 +1391,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "prompt_diff_path",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_prompt_diff_path"
     },
     {
@@ -1402,7 +1402,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "history_dir",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_history_dir"
     },
     {
@@ -1413,7 +1413,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "allowed_upload_extensions",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_allowed_upload_extensions"
     },
     {
@@ -1424,7 +1424,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "controlcatalog",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_controlcatalog"
     },
     {
@@ -1435,7 +1435,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "pricingfromenv()",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_pricingfromenv"
     },
     {
@@ -1446,7 +1446,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "runtoresponse()",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_runtoresponse"
     },
     {
@@ -1457,7 +1457,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "livehits",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_livehits"
     },
     {
@@ -1468,7 +1468,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "ratelimitok()",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_ratelimitok"
     },
     {
@@ -1479,7 +1479,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "accessok()",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_accessok"
     },
     {
@@ -1490,7 +1490,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "app",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_app"
     },
     {
@@ -1501,7 +1501,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "gui_dist",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_server_gui_dist"
     },
     {
@@ -1512,7 +1512,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "reviewengine.test.mjs",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "test_reviewengine_test"
     },
     {
@@ -1523,7 +1523,7 @@
       "_origin": "ast",
       "community": 18,
       "norm_label": "agents.md",
-      "community_name": "Graphify Agent Documentation",
+      "community_name": "Graphify Agents",
       "id": "agents"
     },
     {
@@ -1534,7 +1534,7 @@
       "_origin": "ast",
       "community": 18,
       "norm_label": "graphify",
-      "community_name": "Graphify Agent Documentation",
+      "community_name": "Graphify Agents",
       "id": "agents_graphify"
     },
     {
@@ -1545,7 +1545,7 @@
       "_origin": "ast",
       "community": 19,
       "norm_label": "claude.md",
-      "community_name": "Graphify Claude Documentation",
+      "community_name": "Graphify Claude Integration",
       "id": "claude"
     },
     {
@@ -1556,7 +1556,7 @@
       "_origin": "ast",
       "community": 19,
       "norm_label": "graphify",
-      "community_name": "Graphify Claude Documentation",
+      "community_name": "Graphify Claude Integration",
       "id": "claude_graphify"
     },
     {
@@ -1570,7 +1570,7 @@
       "contributor": null,
       "community": 23,
       "norm_label": "graphify project instructions",
-      "community_name": "Graphify Project Guide",
+      "community_name": "Graphify Project Instructions",
       "id": "agents_graphify_project_instructions"
     },
     {
@@ -1584,7 +1584,7 @@
       "contributor": null,
       "community": 24,
       "norm_label": "claude graphify project instructions",
-      "community_name": "Claude Graphify Guide",
+      "community_name": "Claude Graphify Instructions",
       "id": "claude_graphify_project_instructions"
     },
     {
@@ -1595,7 +1595,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "gui/package.json",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "gui_package"
     },
     {
@@ -1606,7 +1606,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "name",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "gui_package_name"
     },
     {
@@ -1617,7 +1617,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "version",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "gui_package_version"
     },
     {
@@ -1628,7 +1628,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "private",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "gui_package_private"
     },
     {
@@ -1639,7 +1639,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "type",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "gui_package_type"
     },
     {
@@ -1650,7 +1650,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "description",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "gui_package_description"
     },
     {
@@ -1661,7 +1661,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "scripts",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "gui_package_scripts"
     },
     {
@@ -1672,7 +1672,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "dev",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "gui_package_scripts_dev"
     },
     {
@@ -1683,7 +1683,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "build",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "gui_package_scripts_build"
     },
     {
@@ -1694,7 +1694,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "preview",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "gui_package_scripts_preview"
     },
     {
@@ -1705,7 +1705,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "dependencies",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "gui_package_dependencies"
     },
     {
@@ -1716,7 +1716,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "framer-motion",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "gui_package_dependencies_framer_motion"
     },
     {
@@ -1727,7 +1727,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "framer-motion",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "framer_motion"
     },
     {
@@ -1738,7 +1738,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "prismjs",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "gui_package_dependencies_prismjs"
     },
     {
@@ -1749,7 +1749,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "prismjs",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "prismjs"
     },
     {
@@ -1760,7 +1760,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "react",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "gui_package_dependencies_react"
     },
     {
@@ -1771,7 +1771,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "react",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "react"
     },
     {
@@ -1782,7 +1782,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "react-dom",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "gui_package_dependencies_react_dom"
     },
     {
@@ -1793,7 +1793,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "react-dom",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "react_dom"
     },
     {
@@ -1804,7 +1804,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "devdependencies",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "gui_package_devdependencies"
     },
     {
@@ -1815,7 +1815,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "@types/react",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "gui_package_devdependencies_types_react"
     },
     {
@@ -1826,7 +1826,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "@types/react",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "types_react"
     },
     {
@@ -1837,7 +1837,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "@types/react-dom",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "gui_package_devdependencies_types_react_dom"
     },
     {
@@ -1848,7 +1848,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "@types/react-dom",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "types_react_dom"
     },
     {
@@ -1859,7 +1859,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "@vitejs/plugin-react",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "gui_package_devdependencies_vitejs_plugin_react"
     },
     {
@@ -1870,7 +1870,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "@vitejs/plugin-react",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "vitejs_plugin_react"
     },
     {
@@ -1881,7 +1881,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "typescript",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "gui_package_devdependencies_typescript"
     },
     {
@@ -1892,7 +1892,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "typescript",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "typescript"
     },
     {
@@ -1903,7 +1903,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "vite",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "gui_package_devdependencies_vite"
     },
     {
@@ -1914,7 +1914,7 @@
       "_origin": "ast",
       "community": 4,
       "norm_label": "vite",
-      "community_name": "Frontend Framework Dependencies",
+      "community_name": "Frontend Dependencies Setup",
       "id": "vite"
     },
     {
@@ -1925,7 +1925,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "glossarymodal.tsx",
-      "community_name": "API Request Handling",
+      "community_name": "App UI and Access",
       "id": "gui_src_components_glossarymodal"
     },
     {
@@ -1936,7 +1936,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "terms",
-      "community_name": "API Request Handling",
+      "community_name": "App UI and Access",
       "id": "gui_src_components_glossarymodal_terms"
     },
     {
@@ -1947,7 +1947,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "glossarymodal()",
-      "community_name": "API Request Handling",
+      "community_name": "App UI and Access",
       "id": "gui_src_components_glossarymodal_glossarymodal"
     },
     {
@@ -1958,7 +1958,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "infohint.tsx",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_components_infohint"
     },
     {
@@ -1969,7 +1969,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "infohint()",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_components_infohint_infohint"
     },
     {
@@ -1980,7 +1980,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "intropanel.tsx",
-      "community_name": "API Request Handling",
+      "community_name": "App UI and Access",
       "id": "gui_src_components_intropanel"
     },
     {
@@ -1991,7 +1991,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "intropanel()",
-      "community_name": "API Request Handling",
+      "community_name": "App UI and Access",
       "id": "gui_src_components_intropanel_intropanel"
     },
     {
@@ -2002,7 +2002,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "reportcontrols.tsx",
-      "community_name": "API Request Handling",
+      "community_name": "Report Controls UI",
       "id": "gui_src_components_reportcontrols"
     },
     {
@@ -2013,7 +2013,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "props",
-      "community_name": "API Request Handling",
+      "community_name": "Report Controls UI",
       "id": "gui_src_components_reportcontrols_props"
     },
     {
@@ -2024,7 +2024,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "filemeta()",
-      "community_name": "API Request Handling",
+      "community_name": "Report Controls UI",
       "id": "gui_src_components_reportcontrols_filemeta"
     },
     {
@@ -2035,7 +2035,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "reportcontrols()",
-      "community_name": "API Request Handling",
+      "community_name": "Report Controls UI",
       "id": "gui_src_components_reportcontrols_reportcontrols"
     },
     {
@@ -2046,7 +2046,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "runhistory.tsx",
-      "community_name": "API Request Handling",
+      "community_name": "App UI and Access",
       "id": "gui_src_components_runhistory"
     },
     {
@@ -2057,7 +2057,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "props",
-      "community_name": "API Request Handling",
+      "community_name": "App UI and Access",
       "id": "gui_src_components_runhistory_props"
     },
     {
@@ -2068,7 +2068,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "pageitems()",
-      "community_name": "API Request Handling",
+      "community_name": "App UI and Access",
       "id": "gui_src_components_runhistory_pageitems"
     },
     {
@@ -2079,7 +2079,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "runhistory()",
-      "community_name": "API Request Handling",
+      "community_name": "App UI and Access",
       "id": "gui_src_components_runhistory_runhistory"
     },
     {
@@ -2090,7 +2090,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "scanprogress.tsx",
-      "community_name": "API Request Handling",
+      "community_name": "App UI and Access",
       "id": "gui_src_components_scanprogress"
     },
     {
@@ -2101,7 +2101,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "scanprogress()",
-      "community_name": "API Request Handling",
+      "community_name": "App UI and Access",
       "id": "gui_src_components_scanprogress_scanprogress"
     },
     {
@@ -2112,7 +2112,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "sectionnav.tsx",
-      "community_name": "API Request Handling",
+      "community_name": "App UI and Access",
       "id": "gui_src_components_sectionnav"
     },
     {
@@ -2123,7 +2123,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "navitem",
-      "community_name": "API Request Handling",
+      "community_name": "App UI and Access",
       "id": "gui_src_components_sectionnav_navitem"
     },
     {
@@ -2134,7 +2134,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "sectionnav()",
-      "community_name": "API Request Handling",
+      "community_name": "App UI and Access",
       "id": "gui_src_components_sectionnav_sectionnav"
     },
     {
@@ -2145,7 +2145,7 @@
       "_origin": "ast",
       "community": 2,
       "norm_label": "backtotop()",
-      "community_name": "API Request Handling",
+      "community_name": "App UI and Access",
       "id": "gui_src_components_sectionnav_backtotop"
     },
     {
@@ -2156,7 +2156,7 @@
       "_origin": "ast",
       "community": 14,
       "norm_label": "seededviewer.tsx",
-      "community_name": "File Viewer Components",
+      "community_name": "File Viewer Component",
       "id": "gui_src_components_seededviewer"
     },
     {
@@ -2167,7 +2167,7 @@
       "_origin": "ast",
       "community": 14,
       "norm_label": "filetab",
-      "community_name": "File Viewer Components",
+      "community_name": "File Viewer Component",
       "id": "gui_src_components_seededviewer_filetab"
     },
     {
@@ -2178,7 +2178,7 @@
       "_origin": "ast",
       "community": 14,
       "norm_label": "splitfiles()",
-      "community_name": "File Viewer Components",
+      "community_name": "File Viewer Component",
       "id": "gui_src_components_seededviewer_splitfiles"
     },
     {
@@ -2189,7 +2189,7 @@
       "_origin": "ast",
       "community": 14,
       "norm_label": "basename()",
-      "community_name": "File Viewer Components",
+      "community_name": "File Viewer Component",
       "id": "gui_src_components_seededviewer_basename"
     },
     {
@@ -2200,7 +2200,7 @@
       "_origin": "ast",
       "community": 14,
       "norm_label": "seededviewer()",
-      "community_name": "File Viewer Components",
+      "community_name": "File Viewer Component",
       "id": "gui_src_components_seededviewer_seededviewer"
     },
     {
@@ -2211,7 +2211,7 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "susitem.tsx",
-      "community_name": "UAT Progress Components",
+      "community_name": "User Acceptance Testing UI",
       "id": "gui_src_components_uat_susitem"
     },
     {
@@ -2222,7 +2222,7 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "props",
-      "community_name": "UAT Progress Components",
+      "community_name": "User Acceptance Testing UI",
       "id": "gui_src_components_uat_susitem_props"
     },
     {
@@ -2233,7 +2233,7 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "susitem()",
-      "community_name": "UAT Progress Components",
+      "community_name": "User Acceptance Testing UI",
       "id": "gui_src_components_uat_susitem_susitem"
     },
     {
@@ -2244,7 +2244,7 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "susscale.tsx",
-      "community_name": "UAT Progress Components",
+      "community_name": "User Acceptance Testing UI",
       "id": "gui_src_components_uat_susscale"
     },
     {
@@ -2255,7 +2255,7 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "props",
-      "community_name": "UAT Progress Components",
+      "community_name": "User Acceptance Testing UI",
       "id": "gui_src_components_uat_susscale_props"
     },
     {
@@ -2266,7 +2266,7 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "susscale()",
-      "community_name": "UAT Progress Components",
+      "community_name": "User Acceptance Testing UI",
       "id": "gui_src_components_uat_susscale_susscale"
     },
     {
@@ -2277,7 +2277,7 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "uatprogress.tsx",
-      "community_name": "UAT Progress Components",
+      "community_name": "User Acceptance Testing UI",
       "id": "gui_src_components_uat_uatprogress"
     },
     {
@@ -2288,7 +2288,7 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "props",
-      "community_name": "UAT Progress Components",
+      "community_name": "User Acceptance Testing UI",
       "id": "gui_src_components_uat_uatprogress_props"
     },
     {
@@ -2299,7 +2299,7 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "uatprogress()",
-      "community_name": "UAT Progress Components",
+      "community_name": "User Acceptance Testing UI",
       "id": "gui_src_components_uat_uatprogress_uatprogress"
     },
     {
@@ -2310,7 +2310,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "uatselect.tsx",
-      "community_name": "UAT Demographics Input",
+      "community_name": "UAT Demographics and Validation",
       "id": "gui_src_components_uat_uatselect"
     },
     {
@@ -2321,7 +2321,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "props",
-      "community_name": "UAT Demographics Input",
+      "community_name": "UAT Demographics and Validation",
       "id": "gui_src_components_uat_uatselect_props"
     },
     {
@@ -2332,7 +2332,7 @@
       "_origin": "ast",
       "community": 9,
       "norm_label": "uatselect()",
-      "community_name": "UAT Demographics Input",
+      "community_name": "UAT Demographics and Validation",
       "id": "gui_src_components_uat_uatselect_uatselect"
     },
     {
@@ -2343,7 +2343,7 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "uatthankyou.tsx",
-      "community_name": "UAT Progress Components",
+      "community_name": "User Acceptance Testing UI",
       "id": "gui_src_components_uat_uatthankyou"
     },
     {
@@ -2354,7 +2354,7 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "uatthankyou()",
-      "community_name": "UAT Progress Components",
+      "community_name": "User Acceptance Testing UI",
       "id": "gui_src_components_uat_uatthankyou_uatthankyou"
     },
     {
@@ -2365,7 +2365,7 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "uatview.tsx",
-      "community_name": "UAT Progress Components",
+      "community_name": "User Acceptance Testing UI",
       "id": "gui_src_components_uat_uatview"
     },
     {
@@ -2376,7 +2376,7 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "steps",
-      "community_name": "UAT Progress Components",
+      "community_name": "User Acceptance Testing UI",
       "id": "gui_src_components_uat_uatview_steps"
     },
     {
@@ -2387,7 +2387,7 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "step_by_index",
-      "community_name": "UAT Progress Components",
+      "community_name": "User Acceptance Testing UI",
       "id": "gui_src_components_uat_uatview_step_by_index"
     },
     {
@@ -2398,7 +2398,7 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "uatview()",
-      "community_name": "UAT Progress Components",
+      "community_name": "User Acceptance Testing UI",
       "id": "gui_src_components_uat_uatview_uatview"
     },
     {
@@ -2409,7 +2409,7 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "uatwelcome.tsx",
-      "community_name": "UAT Progress Components",
+      "community_name": "User Acceptance Testing UI",
       "id": "gui_src_components_uat_uatwelcome"
     },
     {
@@ -2420,7 +2420,7 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "uatwelcome()",
-      "community_name": "UAT Progress Components",
+      "community_name": "User Acceptance Testing UI",
       "id": "gui_src_components_uat_uatwelcome_uatwelcome"
     },
     {
@@ -2431,7 +2431,7 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "sus.ts",
-      "community_name": "UAT Progress Components",
+      "community_name": "User Acceptance Testing UI",
       "id": "gui_src_lib_sus"
     },
     {
@@ -2442,7 +2442,7 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "sus_items",
-      "community_name": "UAT Progress Components",
+      "community_name": "User Acceptance Testing UI",
       "id": "gui_src_lib_sus_sus_items"
     },
     {
@@ -2453,7 +2453,7 @@
       "_origin": "ast",
       "community": 6,
       "norm_label": "scale_labels",
-      "community_name": "UAT Progress Components",
+      "community_name": "User Acceptance Testing UI",
       "id": "gui_src_lib_sus_scale_labels"
     },
     {
@@ -2464,7 +2464,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "usecountup.ts",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_lib_usecountup"
     },
     {
@@ -2475,7 +2475,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "prefersreducedmotion()",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_lib_usecountup_prefersreducedmotion"
     },
     {
@@ -2486,7 +2486,7 @@
       "_origin": "ast",
       "community": 1,
       "norm_label": "usecountup()",
-      "community_name": "Rulebook UI Components",
+      "community_name": "UI Components and Rulebook",
       "id": "gui_src_lib_usecountup_usecountup"
     },
     {
@@ -2816,7 +2816,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "package.json",
-      "community_name": "Server and CLI Scripts",
+      "community_name": "Server and CLI Setup",
       "id": "package"
     },
     {
@@ -2827,7 +2827,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "name",
-      "community_name": "Server and CLI Scripts",
+      "community_name": "Server and CLI Setup",
       "id": "package_name"
     },
     {
@@ -2838,7 +2838,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "version",
-      "community_name": "Server and CLI Scripts",
+      "community_name": "Server and CLI Setup",
       "id": "package_version"
     },
     {
@@ -2849,7 +2849,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "private",
-      "community_name": "Server and CLI Scripts",
+      "community_name": "Server and CLI Setup",
       "id": "package_private"
     },
     {
@@ -2860,7 +2860,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "type",
-      "community_name": "Server and CLI Scripts",
+      "community_name": "Server and CLI Setup",
       "id": "package_type"
     },
     {
@@ -2871,7 +2871,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "description",
-      "community_name": "Server and CLI Scripts",
+      "community_name": "Server and CLI Setup",
       "id": "package_description"
     },
     {
@@ -2882,7 +2882,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "scripts",
-      "community_name": "Server and CLI Scripts",
+      "community_name": "Server and CLI Setup",
       "id": "package_scripts"
     },
     {
@@ -2893,7 +2893,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "start",
-      "community_name": "Server and CLI Scripts",
+      "community_name": "Server and CLI Setup",
       "id": "package_scripts_start"
     },
     {
@@ -2904,7 +2904,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "server",
-      "community_name": "Server and CLI Scripts",
+      "community_name": "Server and CLI Setup",
       "id": "package_scripts_server"
     },
     {
@@ -2915,7 +2915,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "pin-report",
-      "community_name": "Server and CLI Scripts",
+      "community_name": "Server and CLI Setup",
       "id": "package_scripts_pin_report"
     },
     {
@@ -2926,7 +2926,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "test",
-      "community_name": "Server and CLI Scripts",
+      "community_name": "Server and CLI Setup",
       "id": "package_scripts_test"
     },
     {
@@ -2937,7 +2937,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "cli:diff",
-      "community_name": "Server and CLI Scripts",
+      "community_name": "Server and CLI Setup",
       "id": "package_scripts_cli_diff"
     },
     {
@@ -2948,7 +2948,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "cli:full",
-      "community_name": "Server and CLI Scripts",
+      "community_name": "Server and CLI Setup",
       "id": "package_scripts_cli_full"
     },
     {
@@ -2959,7 +2959,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "dependencies",
-      "community_name": "Server and CLI Scripts",
+      "community_name": "Server and CLI Setup",
       "id": "package_dependencies"
     },
     {
@@ -2970,7 +2970,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "express",
-      "community_name": "Server and CLI Scripts",
+      "community_name": "Server and CLI Setup",
       "id": "package_dependencies_express"
     },
     {
@@ -2981,7 +2981,7 @@
       "_origin": "ast",
       "community": 8,
       "norm_label": "express",
-      "community_name": "Server and CLI Scripts",
+      "community_name": "Server and CLI Setup",
       "id": "express"
     },
     {
@@ -2992,7 +2992,7 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "evalmatch.mjs",
-      "community_name": "Detection Evaluation Metrics",
+      "community_name": "Evaluation and Metrics",
       "id": "scripts_evalmatch"
     },
     {
@@ -3003,7 +3003,7 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "basename()",
-      "community_name": "Detection Evaluation Metrics",
+      "community_name": "Evaluation and Metrics",
       "id": "scripts_evalmatch_basename"
     },
     {
@@ -3014,7 +3014,7 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "ruleidof()",
-      "community_name": "Detection Evaluation Metrics",
+      "community_name": "Evaluation and Metrics",
       "id": "scripts_evalmatch_ruleidof"
     },
     {
@@ -3025,7 +3025,7 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "matchdetections()",
-      "community_name": "Detection Evaluation Metrics",
+      "community_name": "Evaluation and Metrics",
       "id": "scripts_evalmatch_matchdetections"
     },
     {
@@ -3036,7 +3036,7 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "computemetrics()",
-      "community_name": "Detection Evaluation Metrics",
+      "community_name": "Evaluation and Metrics",
       "id": "scripts_evalmatch_computemetrics"
     },
     {
@@ -3047,7 +3047,7 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "evaluate()",
-      "community_name": "Detection Evaluation Metrics",
+      "community_name": "Evaluation and Metrics",
       "id": "scripts_evalmatch_evaluate"
     },
     {
@@ -3058,7 +3058,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "reviewengine.mjs",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine"
     },
     {
@@ -3069,7 +3069,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "severityweight",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_severityweight"
     },
     {
@@ -3080,7 +3080,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "controlriskfloor",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_controlriskfloor"
     },
     {
@@ -3091,7 +3091,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "reviewschema",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_reviewschema"
     },
     {
@@ -3102,7 +3102,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "parsecsvline()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_parsecsvline"
     },
     {
@@ -3113,7 +3113,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "loadcontrolriskcatalog()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_loadcontrolriskcatalog"
     },
     {
@@ -3124,7 +3124,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "collectcontrolidsfromtext()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_collectcontrolidsfromtext"
     },
     {
@@ -3135,7 +3135,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "collectcontrolidsfromissue()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_collectcontrolidsfromissue"
     },
     {
@@ -3146,7 +3146,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "applyseverityfloorfromcontrols()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_applyseverityfloorfromcontrols"
     },
     {
@@ -3157,7 +3157,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "chunktext()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_chunktext"
     },
     {
@@ -3168,7 +3168,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "isprobablybinary()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_isprobablybinary"
     },
     {
@@ -3179,7 +3179,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "globtoregexp()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_globtoregexp"
     },
     {
@@ -3190,7 +3190,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "parsegloblist()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_parsegloblist"
     },
     {
@@ -3201,7 +3201,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "matchesany()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_matchesany"
     },
     {
@@ -3212,7 +3212,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "gatherfullrepopieces()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_gatherfullrepopieces"
     },
     {
@@ -3223,7 +3223,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "gatherdiffpieces()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_gatherdiffpieces"
     },
     {
@@ -3234,7 +3234,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "batchpieces()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_batchpieces"
     },
     {
@@ -3245,7 +3245,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "codetosyntheticdiff()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_codetosyntheticdiff"
     },
     {
@@ -3256,7 +3256,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "buildsyntheticdifffromfiles()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_buildsyntheticdifffromfiles"
     },
     {
@@ -3267,7 +3267,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "assessinput()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_assessinput"
     },
     {
@@ -3278,7 +3278,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "parseresponsespayload()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_parseresponsespayload"
     },
     {
@@ -3289,7 +3289,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "parsechatpayload()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_parsechatpayload"
     },
     {
@@ -3300,7 +3300,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "callopenai()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_callopenai"
     },
     {
@@ -3311,7 +3311,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "normaliseissue()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_normaliseissue"
     },
     {
@@ -3322,7 +3322,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "tocodeclimate()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_tocodeclimate"
     },
     {
@@ -3333,7 +3333,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "runreviewtasks()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_runreviewtasks"
     },
     {
@@ -3344,7 +3344,7 @@
       "_origin": "ast",
       "community": 0,
       "norm_label": "reviewsource()",
-      "community_name": "Control Risk Assessment",
+      "community_name": "Issue Risk Assessment",
       "id": "scripts_reviewengine_reviewsource"
     },
     {
@@ -3355,7 +3355,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "ground_truth.mjs",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_data_ground_truth"
     },
     {
@@ -3366,7 +3366,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "ground_truth",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_data_ground_truth_ground_truth"
     },
     {
@@ -3377,7 +3377,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "official_metrics",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_data_ground_truth_official_metrics"
     },
     {
@@ -3388,7 +3388,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "getgroundtruth()",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_data_ground_truth_getgroundtruth"
     },
     {
@@ -3399,7 +3399,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "lead_dev_validation.mjs",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_data_lead_dev_validation"
     },
     {
@@ -3410,7 +3410,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "lead_dev_validation",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_data_lead_dev_validation_lead_dev_validation"
     },
     {
@@ -3421,7 +3421,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "getleaddevvalidation()",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_data_lead_dev_validation_getleaddevvalidation"
     },
     {
@@ -3718,7 +3718,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "uat.mjs",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_uat"
     },
     {
@@ -3729,7 +3729,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "common_domain_typos",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_uat_common_domain_typos"
     },
     {
@@ -3740,7 +3740,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "validateemailaddress()",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_uat_validateemailaddress"
     },
     {
@@ -3751,7 +3751,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "validateuatpayload()",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_uat_validateuatpayload"
     },
     {
@@ -3762,7 +3762,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "forwardtoappsscript()",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "server_uat_forwardtoappsscript"
     },
     {
@@ -3784,7 +3784,7 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "evalmatch.test.mjs",
-      "community_name": "Detection Evaluation Metrics",
+      "community_name": "Evaluation and Metrics",
       "id": "test_evalmatch_test"
     },
     {
@@ -3795,7 +3795,7 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "rules",
-      "community_name": "Detection Evaluation Metrics",
+      "community_name": "Evaluation and Metrics",
       "id": "test_evalmatch_test_rules"
     },
     {
@@ -3806,7 +3806,7 @@
       "_origin": "ast",
       "community": 12,
       "norm_label": "f()",
-      "community_name": "Detection Evaluation Metrics",
+      "community_name": "Evaluation and Metrics",
       "id": "test_evalmatch_test_f"
     },
     {
@@ -3817,7 +3817,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "groundtruth.test.mjs",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "test_groundtruth_test"
     },
     {
@@ -3872,7 +3872,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "rulebook.test.mjs",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "test_rulebook_test"
     },
     {
@@ -3883,7 +3883,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "uat.test.mjs",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "test_uat_test"
     },
     {
@@ -3894,7 +3894,7 @@
       "_origin": "ast",
       "community": 3,
       "norm_label": "goodbody()",
-      "community_name": "Ground Truth Validation",
+      "community_name": "Validation and Access Control",
       "id": "test_uat_test_goodbody"
     },
     {
@@ -3978,7 +3978,7 @@
       "contributor": null,
       "community": 22,
       "norm_label": "task 9 report",
-      "community_name": "GUI Report Page",
+      "community_name": "GUI and Report",
       "id": "gui_task9_report"
     },
     {
@@ -3992,7 +3992,7 @@
       "contributor": null,
       "community": 22,
       "norm_label": "gui index.html",
-      "community_name": "GUI Report Page",
+      "community_name": "GUI and Report",
       "id": "gui_index_html"
     },
     {
@@ -4046,10 +4046,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 11,
-      "norm_label": "graphify",
       "id": "codex_skills_graphify_skill_graphify",
-      "community_name": "Graphify Knowledge Graph Tools"
+      "community": 11,
+      "norm_label": "graphify"
     },
     {
       "label": "graphify reference: add a URL and watch a folder",
@@ -4060,10 +4059,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 11,
-      "norm_label": "graphify reference: add a url and watch a folder",
       "id": "codex_skills_graphify_references_add_watch",
-      "community_name": "Graphify Knowledge Graph Tools"
+      "community": 11,
+      "norm_label": "graphify reference: add a url and watch a folder"
     },
     {
       "label": "graphify reference: extra exports and benchmark",
@@ -4074,10 +4072,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 11,
-      "norm_label": "graphify reference: extra exports and benchmark",
       "id": "codex_skills_graphify_references_exports",
-      "community_name": "Graphify Knowledge Graph Tools"
+      "community": 11,
+      "norm_label": "graphify reference: extra exports and benchmark"
     },
     {
       "label": "graphify reference: extraction subagent prompt (compact)",
@@ -4088,10 +4085,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 11,
-      "norm_label": "graphify reference: extraction subagent prompt (compact)",
       "id": "codex_skills_graphify_references_extraction_spec",
-      "community_name": "Graphify Knowledge Graph Tools"
+      "community": 11,
+      "norm_label": "graphify reference: extraction subagent prompt (compact)"
     },
     {
       "label": "graphify reference: GitHub clone and cross-repo merge",
@@ -4102,10 +4098,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 11,
-      "norm_label": "graphify reference: github clone and cross-repo merge",
       "id": "codex_skills_graphify_references_github_and_merge",
-      "community_name": "Graphify Knowledge Graph Tools"
+      "community": 11,
+      "norm_label": "graphify reference: github clone and cross-repo merge"
     },
     {
       "label": "graphify reference: commit hook and native CLAUDE.md integration",
@@ -4116,10 +4111,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 11,
-      "norm_label": "graphify reference: commit hook and native claude.md integration",
       "id": "codex_skills_graphify_references_hooks",
-      "community_name": "Graphify Knowledge Graph Tools"
+      "community": 11,
+      "norm_label": "graphify reference: commit hook and native claude.md integration"
     },
     {
       "label": "graphify reference: query, path, explain",
@@ -4130,10 +4124,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 11,
-      "norm_label": "graphify reference: query, path, explain",
       "id": "codex_skills_graphify_references_query",
-      "community_name": "Graphify Knowledge Graph Tools"
+      "community": 11,
+      "norm_label": "graphify reference: query, path, explain"
     },
     {
       "label": "graphify reference: transcribe video and audio",
@@ -4144,10 +4137,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 11,
-      "norm_label": "graphify reference: transcribe video and audio",
       "id": "codex_skills_graphify_references_transcribe",
-      "community_name": "Graphify Knowledge Graph Tools"
+      "community": 11,
+      "norm_label": "graphify reference: transcribe video and audio"
     },
     {
       "label": "graphify reference: incremental update and cluster-only",
@@ -4158,10 +4150,9 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 11,
-      "norm_label": "graphify reference: incremental update and cluster-only",
       "id": "codex_skills_graphify_references_update",
-      "community_name": "Graphify Knowledge Graph Tools"
+      "community": 11,
+      "norm_label": "graphify reference: incremental update and cluster-only"
     }
   ],
   "links": [
